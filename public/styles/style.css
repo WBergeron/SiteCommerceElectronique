@@ -10899,3 +10899,9 @@ h6 {
     transform: translateY(-15px);
   }
 }
+
+#navbarFixed {
+  position: sticky;
+  top: 0px;
+  z-index: 100;
+}
