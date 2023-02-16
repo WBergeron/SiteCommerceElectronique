@@ -1,0 +1,106 @@
+[
+    {
+        "type": "header",
+        "version": "5.2.0",
+        "comment": "Export to JSON plugin for PHPMyAdmin"
+    },
+    {
+        "type": "database",
+        "name": "tp"
+    },
+    {
+        "type": "table",
+        "name": "product",
+        "database": "tp",
+        "data": [
+            {
+                "idProduct": "1",
+                "name": "Cherry MX Switch Set Red",
+                "price": "52.99",
+                "quantity_in_stock": "500",
+                "description": "Lot de 110 switches Red, 3 pins de Cherry. Il conviendrons a la plus part des gens. Les Cherry red sont des switches linéaires a 2mm de distance d'activation pour un total de 44mm de distance. Pour être enclenché, elle a besoin de 45 cN de force. Pour plus de détail, veuillez consulté le site de Cherry: https:\/\/www.cherrymx.de\/en\/cherry-mx\/mx-original\/mx-red.html",
+                "image_path": "img\/switchs\/cherry-red-switch-set_jpg"
+            },
+            {
+                "idProduct": "2",
+                "name": "Cherry MX Switch Set Blue",
+                "price": "58.99",
+                "quantity_in_stock": "300",
+                "description": "Lot de 110 switches Blue, 3 pins de Cherry. Il conviendra a ceux qui recherche un click d'activation. Les Cherry blue sont des switches a click a 2.2mm de distance d'activation pour un total de 4mm de distance. Pour être enclenché, elle a besoin de 60 cN de force. Pour plus de détail, veuillez consulté le site de Cherry: https:\/\/www.cherrymx.de\/en\/cherry-mx\/mx-original\/mx-blue.html",
+                "image_path": "img\/switchs\/cherry-blue-switch-set_.jpg"
+            },
+            {
+                "idProduct": "3",
+                "name": "Cherry MX Switch Set Brown",
+                "price": "52.99",
+                "quantity_in_stock": "400",
+                "description": "Lot de 110 switches Browns, 3 pins de Cherry. Il conviendra a ceux qui recherche un petit click d'activation avec un petit kick back. Les Cherry browns sont des switches a click a 2mm de distance d'activation pour un total de 4mm de distance. Pour être enclenché, elle a besoin de 55 cN de force. Pour plus de détail, veuillez consulté le site de Cherry: https:\/\/www.cherrymx.de\/en\/cherry-mx\/mx-original\/mx-brown.html",
+                "image_path": "img\/switchs\/cherry-brown-switch-set_.jpg"
+            },
+            {
+                "idProduct": "4",
+                "name": "Cherry MX Switch Set Silver",
+                "price": "79.99",
+                "quantity_in_stock": "200",
+                "description": "Lot de 110 switches Silvers, 3 pins de Cherry. Il conviendrons a des gens qui demande des switches performante avec de la lumière RGB. Les Cherry silvers sont des switches linéaires a 1.2mm de distance d'activation pour un total de 3.4mm de distance. Pour être enclenché, elle a besoin de 45 cN de force. Ajout de lumière RGB situer en haut de la switch. Pour plus de détail, veuillez consulté le site de Cherry: https:\/\/www.cherrymx.de\/en\/cherry-mx\/mx-original\/mx-speed-silver.html",
+                "image_path": "img\/switchs\/cherry-rgb-silver-switch_.jpg"
+            },
+            {
+                "idProduct": "5",
+                "name": "Kailh Super Speed Switch Red",
+                "price": "65.99",
+                "quantity_in_stock": "300",
+                "description": "Lot de 110 switches Super Speed Red, 3 pins de Kailh. Ils conviendront a des gens qui demande des switches performante pour le gaming. Les Kailh super speed red sont des switches linéaires a 1.8mm de distance d'activation pour un total de 4mm de distance. Pour être enclenché, elle a besoin de 37 cN de force.",
+                "image_path": "img\/switchs\/kailh-super-speed-red-switch-set_.jpg"
+            },
+            {
+                "idProduct": "6",
+                "name": "Kailh Super Speed Switch Bronze",
+                "price": "72.99",
+                "quantity_in_stock": "50",
+                "description": "Lot de 110 switches Super Speed Bronze, 3 pins de Kailh. Ils conviendront a des gens qui demande des switches performante pour écrire rapidement. Les Kailh super speed bronze sont des switches à \"bumb\" a 1.4mm de distance d'activation pour un total de 3.5mm de distance. Pour être enclenché, elle a besoin de 48 cN de force.",
+                "image_path": "img\/switchs\/kailh-super-speed-bronze-set_.jpg"
+            },
+            {
+                "idProduct": "7",
+                "name": "Keychron Q3 QMK Custom Mechanical Keyboard",
+                "price": "164.99",
+                "quantity_in_stock": "50",
+                "description": "Clavier mécanique en \"hot-swap\", full aluminium Q3 de Keychron. Le clavier est muni du \"Double-Gasket\", une technologie d'amortissement du clavier suite au click d'une switch. Format 80% (TKL), couleur noir.",
+                "image_path": "img\/keyboards\/Keychron-Q3-QMKVIA-Black.jpg"
+            },
+            {
+                "idProduct": "8",
+                "name": "Keychron Q1 QMK Custom Mechanical Keyboard V2",
+                "price": "159.99",
+                "quantity_in_stock": "40",
+                "description": "Clavier mécanique en \"hot-swap\", full aluminium Q1 de Keychron. Le clavier est muni du \"Double-Gasket\", une technologie d'amortissement du clavier suite au click d'une switch. Format 75%, couleur noir.",
+                "image_path": "img\/keyboards\/Q1-QMK-V2-Black.jpg"
+            },
+            {
+                "idProduct": "9",
+                "name": "Keychron Q6 QMK Custom Mechanical Keyboard ISO Layout",
+                "price": "185.99",
+                "quantity_in_stock": "30",
+                "description": "Clavier mécanique en \"hot-swap\", full aluminium Q6 de Keychron. Le clavier est muni du \"Double-Gasket\", une technologie d'amortissement du clavier suite au click d'une switch. Format 100%, couleur noir. Le \"layout\" du clavier est ISO",
+                "image_path": "img\/keyboards\/Keychron-Q6-QMK-Black.jpg"
+            },
+            {
+                "idProduct": "10",
+                "name": "Keychron Q9 QMK Custom Mechanical Keyboard Black",
+                "price": "120.99",
+                "quantity_in_stock": "30",
+                "description": "Clavier mécanique en \"hot-swap\", full aluminium Q9 de Keychron. Le clavier est muni du \"Double-Gasket\", une technologie d'amortissement du clavier suite au click d'une switch. Format 40%, couleur noir.",
+                "image_path": "img\/keyboards\/Keychron-Q9-QMK-Black.jpg"
+            },
+            {
+                "idProduct": "11",
+                "name": "Keychron K2 Pro QMK\/VIA Wireless Mechanical Keyboard",
+                "price": "99.99",
+                "quantity_in_stock": "50",
+                "description": "Clavier mécanique en \"hot-swap\", plastique K2 Pro de Keychron. Le clavier est muni de \"Bluetooth 5.1\" se qui permet de se connecter facilement. Format 75%, couleur noir.",
+                "image_path": "img\/keyboards\/Keychron-K2-Pro-QMK-VIA-Black.jpg"
+            }
+        ]
+    }
+]
