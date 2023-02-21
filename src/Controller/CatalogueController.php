@@ -28,7 +28,7 @@ class CatalogueController extends AbstractController
         // Pour débug
         // var_dump($products);
 
-        return $this->render('catalogue/catalogue.html.twig', ['produit' => $produits, 'categorie' => $categories]);
+        return $this->render('catalogue/catalogue.html.twig', ['produits' => $produits, 'categories' => $categories]);
     }
 
     private function retrieveProducts($categorie, $searchField)

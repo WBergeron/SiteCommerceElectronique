@@ -15,12 +15,18 @@
 				{% include 'catalogue/filtrerCategorie.html.twig' %}
 				{% include 'catalogue/filtrerPrix.html.twig' %}
 			</div>
-		</div>
-		<!--Product Viewer-->
-		<div class="col-lg-9 col-md-8">
-			<div class="row pb-3"></div>
+
+			<!--Product Viewer-->
+			<div class="col-lg-9 col-md-8">
+				<div class="row pb-3">
+					{% for produit in produits %}
+						{% include 'catalogue/produitCard.html.twig' %}
+					{% endfor %}
+				</div>
+			</div>
 		</div>
 	</div>
+
 
 	{% include 'core/vendor.html.twig' %}
 	{% include 'core/footer.html.twig' %}
