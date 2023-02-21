@@ -1,35 +1,20 @@
-<h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filtrer par Catégorie</span></h5>
+<h5 class="section-title position-relative text-uppercase mb-3">
+	<span class="bg-secondary pr-3">Filtrer par Catégorie</span>
+</h5>
 <div class="bg-light p-4 mb-30">
-    <form>
-        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-            <input type="checkbox" class="custom-control-input" checked id="price-all">
-            <label class="custom-control-label" for="price-all">Toutes les catégories</label>
-            <span class="badge border font-weight-normal">1000</span>
-        </div>
-        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-            <input type="checkbox" class="custom-control-input" id="price-1">
-            <label class="custom-control-label" for="price-1">Switchs</label>
-            <span class="badge border font-weight-normal">150</span>
-        </div>
-        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-            <input type="checkbox" class="custom-control-input" id="price-2">
-            <label class="custom-control-label" for="price-2">Frame de claviers</label>
-            <span class="badge border font-weight-normal">295</span>
-        </div>
-        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-            <input type="checkbox" class="custom-control-input" id="price-3">
-            <label class="custom-control-label" for="price-3">Touches</label>
-            <span class="badge border font-weight-normal">246</span>
-        </div>
-        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-            <input type="checkbox" class="custom-control-input" id="price-4">
-            <label class="custom-control-label" for="price-4">Accessoire</label>
-            <span class="badge border font-weight-normal">145</span>
-        </div>
-        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-            <input type="checkbox" class="custom-control-input" id="price-5">
-            <label class="custom-control-label" for="price-5">Clavier tout inclu</label>
-            <span class="badge border font-weight-normal">168</span>
-        </div>
-    </form>
+	<form>
+		<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+			<input type="checkbox" class="custom-control-input" checked>
+			<label class="custom-control-label" for="price-all" href="{{ path('app_catalogue') }}">Toutes les catégories</label>
+			<span class="badge border font-weight-normal">1000</span>
+		</div>
+
+		{% for categorie in categories %}
+			<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+				<input type="checkbox" class="custom-control-input">
+				<label class="custom-control-label" for="price-1" href="{{ path('app_catalogue', { categorie: categorie.idCategorie }) }}">{{categorie.categorie}}</label>
+				<span class="badge border font-weight-normal">150</span>
+			</div>
+		{% endfor %}
+	</form>
 </div>
