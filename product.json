@@ -10,11 +10,11 @@
     },
     {
         "type": "table",
-        "name": "product",
+        "name": "produit",
         "database": "tp",
         "data": [
             {
-                "idProduct": "1",
+                "idProduit": "1",
                 "name": "Cherry MX Switch Set Red",
                 "price": "52.99",
                 "quantity_in_stock": "500",
@@ -22,7 +22,7 @@
                 "image_path": "img\/switchs\/cherry-red-switch-set_jpg"
             },
             {
-                "idProduct": "2",
+                "idProduit": "2",
                 "name": "Cherry MX Switch Set Blue",
                 "price": "58.99",
                 "quantity_in_stock": "300",
@@ -30,7 +30,7 @@
                 "image_path": "img\/switchs\/cherry-blue-switch-set_.jpg"
             },
             {
-                "idProduct": "3",
+                "idProduit": "3",
                 "name": "Cherry MX Switch Set Brown",
                 "price": "52.99",
                 "quantity_in_stock": "400",
@@ -38,7 +38,7 @@
                 "image_path": "img\/switchs\/cherry-brown-switch-set_.jpg"
             },
             {
-                "idProduct": "4",
+                "idProduit": "4",
                 "name": "Cherry MX Switch Set Silver",
                 "price": "79.99",
                 "quantity_in_stock": "200",
@@ -46,7 +46,7 @@
                 "image_path": "img\/switchs\/cherry-rgb-silver-switch_.jpg"
             },
             {
-                "idProduct": "5",
+                "idProduit": "5",
                 "name": "Kailh Super Speed Switch Red",
                 "price": "65.99",
                 "quantity_in_stock": "300",
@@ -54,7 +54,7 @@
                 "image_path": "img\/switchs\/kailh-super-speed-red-switch-set_.jpg"
             },
             {
-                "idProduct": "6",
+                "idProduit": "6",
                 "name": "Kailh Super Speed Switch Bronze",
                 "price": "72.99",
                 "quantity_in_stock": "50",
@@ -62,7 +62,7 @@
                 "image_path": "img\/switchs\/kailh-super-speed-bronze-set_.jpg"
             },
             {
-                "idProduct": "7",
+                "idProduit": "7",
                 "name": "Keychron Q3 QMK Custom Mechanical Keyboard",
                 "price": "164.99",
                 "quantity_in_stock": "50",
@@ -70,7 +70,7 @@
                 "image_path": "img\/keyboards\/Keychron-Q3-QMKVIA-Black.jpg"
             },
             {
-                "idProduct": "8",
+                "idProduit": "8",
                 "name": "Keychron Q1 QMK Custom Mechanical Keyboard V2",
                 "price": "159.99",
                 "quantity_in_stock": "40",
@@ -78,7 +78,7 @@
                 "image_path": "img\/keyboards\/Q1-QMK-V2-Black.jpg"
             },
             {
-                "idProduct": "9",
+                "idProduit": "9",
                 "name": "Keychron Q6 QMK Custom Mechanical Keyboard ISO Layout",
                 "price": "185.99",
                 "quantity_in_stock": "30",
@@ -86,7 +86,7 @@
                 "image_path": "img\/keyboards\/Keychron-Q6-QMK-Black.jpg"
             },
             {
-                "idProduct": "10",
+                "idProduit": "10",
                 "name": "Keychron Q9 QMK Custom Mechanical Keyboard Black",
                 "price": "120.99",
                 "quantity_in_stock": "30",
@@ -94,7 +94,7 @@
                 "image_path": "img\/keyboards\/Keychron-Q9-QMK-Black.jpg"
             },
             {
-                "idProduct": "11",
+                "idProduit": "11",
                 "name": "Keychron K2 Pro QMK\/VIA Wireless Mechanical Keyboard",
                 "price": "99.99",
                 "quantity_in_stock": "50",

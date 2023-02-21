@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Product;
-use App\Entity\Category;
+use App\Entity\Produit;
+use App\Entity\Categorie;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,22 +19,25 @@ class CatalogueController extends AbstractController
     {
         $this->em = $doctrine->getManager();
         $categorie = $request->query->get('categorie'); // $_GET['categorie']
-        $searchField = $request->$request->get('search_field');
+        $searchField = $request->request->get('search_field'); // $_POST['search_field']
 
         $categories = $this->retrieveAllCategories();
 
-        $products = $this->retrieveProducts($categorie, $searchField);
+        $produits = $this->retrieveProducts($categorie, $searchField);
 
-        return $this->render('catalogue/catalogue.html.twig', ['product' => $products, 'category' => $categories]);
+        // Pour débug
+        // var_dump($products);
+
+        return $this->render('catalogue/catalogue.html.twig', ['produit' => $produits, 'categorie' => $categories]);
     }
 
     private function retrieveProducts($categorie, $searchField)
     {
-        return $this->em->getRepository(Product::class)->findWithCriteria($categorie, $searchField);
+        return $this->em->getRepository(Produit::class)->findWithCriteria($categorie, $searchField);
     }
 
     private function retrieveAllCategories()
     {
-        return $this->em->getRepository(Category::class)->findAll();
+        return $this->em->getRepository(Categorie::class)->findAll();
     }
 }

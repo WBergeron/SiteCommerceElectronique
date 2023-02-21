@@ -8,20 +8,17 @@
 
 	<!--Ajout du shop-->
 	<div class="container-fluid">
-        <div class="row px-xl-5">
-		<!--Side bar Trier-->
+		<div
+			class="row px-xl-5">
+			<!--Side bar Trier-->
 			<div class="col-lg-3 col-md-4">
 				{% include 'catalogue/filtrerCategorie.html.twig' %}
 				{% include 'catalogue/filtrerPrix.html.twig' %}
 			</div>
 		</div>
 		<!--Product Viewer-->
-		 <div class="col-lg-9 col-md-8">
-			<div class="row pb-3">
-				{% for product in products %}
-					{% include 'catalogue/productCard.html.twig' %}
-				{% endfor %}
-			</div>
+		<div class="col-lg-9 col-md-8">
+			<div class="row pb-3"></div>
 		</div>
 	</div>
 

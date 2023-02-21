@@ -48,16 +48,16 @@
 								<a href="checkout.html" class="dropdown-item">Caisse</a>
 							</div>
 						</div>
-						<form action="">
-				<div class="input-group">
-					<input type="text" class="form-control" placeholder="Chercher un produit">
-					<div class="input-group-append">
-						<span class="input-group-text bg-transparent text-primary">
-							<i class="fa fa-search"></i>
-						</span>
-					</div>
-				</div>
-			</form>
+						<form class="d-flex" method="POST" action="{{ app.request.uri }}">
+							<div class="input-group">
+								<input type="text" class="form-control" placeholder="Chercher un produit">
+								<div class="input-group-append">
+									<span class="input-group-text bg-transparent text-primary">
+										<i class="fa fa-search"></i>
+									</span>
+								</div>
+							</div>
+						</form>
 					</div>
 					<div class="navbar-nav ml-auto py-0 d-none d-lg-block">
 						<a href="" class="btn px-0">
