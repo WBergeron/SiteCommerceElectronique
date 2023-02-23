@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3307
--- Généré le : mar. 21 fév. 2023 à 16:05
+-- Généré le : jeu. 23 fév. 2023 à 18:38
 -- Version du serveur : 10.10.2-MariaDB
 -- Version de PHP : 8.2.0
 
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `produits` (
   `categorie` int(11) DEFAULT NULL,
   PRIMARY KEY (`idProduit`),
   KEY `IDX_BE2DDF8C497DD634` (`categorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `produits`
@@ -100,7 +100,10 @@ INSERT INTO `produits` (`idProduit`, `name`, `price`, `quantity_in_stock`, `desc
 (8, 'Keychron Q1 QMK Custom Mechanical Keyboard V2', 159.99, 40, 'Clavier mécanique en \"hot-swap\", full aluminium Q1 de Keychron. Le clavier est muni du \"Double-Gasket\", une technologie d\'amortissement du clavier suite au click d\'une switch. Format 75%, couleur noir.', '\\img\\keyboards\\Keychron-Q1-QMK-V2-Black.jpg', 2),
 (9, 'Keychron Q6 QMK Custom Mechanical Keyboard ISO Layout', 185.99, 30, 'Clavier mécanique en \"hot-swap\", full aluminium Q6 de Keychron. Le clavier est muni du \"Double-Gasket\", une technologie d\'amortissement du clavier suite au click d\'une switch. Format 100%, couleur noir. Le \"layout\" du clavier est ISO', 'img/keyboards/Keychron-Q6-QMK-Black.jpg', 2),
 (10, 'Keychron Q9 QMK Custom Mechanical Keyboard Black', 120.99, 30, 'Clavier mécanique en \"hot-swap\", full aluminium Q9 de Keychron. Le clavier est muni du \"Double-Gasket\", une technologie d\'amortissement du clavier suite au click d\'une switch. Format 40%, couleur noir.', 'img/keyboards/Keychron-Q9-QMK-Black.jpg', 2),
-(11, 'Keychron K2 Pro QMK/VIA Wireless Mechanical Keyboard', 99.99, 50, 'Clavier mécanique en \"hot-swap\", plastique K2 Pro de Keychron. Le clavier est muni de \"Bluetooth 5.1\" se qui permet de se connecter facilement. Format 75%, couleur noir.', 'img/keyboards/Keychron-K2-Pro-QMK-VIA-Black.jpg', 2);
+(11, 'Keychron K2 Pro QMK/VIA Wireless Mechanical Keyboard', 99.99, 50, 'Clavier mécanique en \"hot-swap\", plastique K2 Pro de Keychron. Le clavier est muni de \"Bluetooth 5.1\" se qui permet de se connecter facilement. Format 75%, couleur noir.', 'img/keyboards/Keychron-K2-Pro-QMK-VIA-Black.jpg', 2),
+(12, 'TUT Vacation keycaps SET', 81.99, 12, 'Set complet de touche style vacance de TUT. Elles sont produit par injection de couleur. Compatible avec les touches Cherry MX et similaire. Profile de touche Cherry. Couleur bleu foncé.', '\\img\\keycaps\\TutVacanceKeycaps.jpg', 3),
+(13, 'EPBT YUKIHANA', 99.99, 4, 'Set complet de touche style hiver de ePBT. Elles sont produit par injection de couleur. Compatible avec les touches Cherry MX et similaire. Profile de touche Cherry. Couleur bleu clair et blanc.', 'img\\keycaps\\ePBTHiverKeycaps.jpg', 3),
+(14, 'M7 GAME CONSOLE ARTISAN KEYCAP', 18.99, 48, 'Touche seule en forme de console de jeu fait par M7.\r\nFait d\'aluminium pour le console et de silicone pour les boutons. Pèse 40g. Compatible avec le profile de touche Cherry. RGB compatible face nord', 'img\\keycaps\\M7ConsoleGameKeycap.jpg', 3);
 
 --
 -- Contraintes pour les tables déchargées
