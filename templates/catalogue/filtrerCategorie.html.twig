@@ -4,15 +4,15 @@
 <div class="bg-light p-4 mb-30">
 	<form>
 		<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-			<input type="checkbox" class="custom-control-input" checked>
-			<label class="custom-control-label" for="price-all" href="{{ path('app_catalogue') }}">Toutes les catégories</label>
+			<input type="checkbox" class="custom-control-input" id="categorie_all" checked>
+			<label class="custom-control-label checkBoxCategorie" for="categorie_all" href="{{ path('app_catalogue') }}">Toutes les catégories</label>
 			<span class="badge border font-weight-normal">1000</span>
 		</div>
 
 		{% for categorie in categories %}
 			<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-				<input type="checkbox" class="custom-control-input">
-				<label class="custom-control-label" for="price-1" href="{{ path('app_catalogue', { categorie: categorie.idCategorie }) }}">{{categorie.categorie}}</label>
+				<input type="checkbox" class="custom-control-input" id="categorie_{{categorie.idCategorie}}">
+				<label class="custom-control-label checkBoxCategorie" for="categorie_{{categorie.idCategorie}}" href="{{ path('app_catalogue', { categorie: categorie.idCategorie }) }}">{{categorie.categorie}}</label>
 				<span class="badge border font-weight-normal">150</span>
 			</div>
 		{% endfor %}
