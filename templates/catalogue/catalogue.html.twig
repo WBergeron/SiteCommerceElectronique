@@ -18,9 +18,15 @@
 			<!--Product Viewer-->
 			<div class="col-lg-9 col-md-8">
 				<div class="row pb-3">
-					{% for produit in produits %}
-						{% include 'catalogue/produitCard.html.twig' %}
-					{% endfor %}
+					{% if produits|length > 0 %}
+						{% for produit in produits %}
+							{% include 'catalogue/produitCard.html.twig' %}
+						{% endfor %}
+					{% else %}
+						<div class="col-lg-4 col-md-6 col-sm-6 pb-1">
+							Ces critères de recherche ne comporte pas encore de produit
+						</div>
+					{% endif %}
 				</div>
 			</div>
 		</div>

@@ -101,9 +101,11 @@
     });
 
     // Checkbox du filtre catégorie
-    $('.checkBoxCategorie').on('click', () => {
-        // TODO:
-    });
+    //$('.checkBoxCategorie').on('click', () => {
+    // TODO:
+    //});
+
+
 
 
 })(jQuery);

@@ -40,4 +40,13 @@ class CatalogueController extends AbstractController
     {
         return $this->em->getRepository(Categorie::class)->findAll();
     }
+
+    #[Route('/produits/{idProduit}', name: 'produit_modal')]
+    public function infoProduit($idProduit, Request $request, ManagerRegistry $doctrine): Response
+    {
+        $this->em = $doctrine->getManager();
+        $produit = $this->em->getRepository(Produit::class)->find($idProduit);
+
+        return $this->render('catalogue/produit.modal.twig', ['produit' => $produit]);
+    }
 }
