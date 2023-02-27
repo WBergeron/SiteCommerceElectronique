@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3307
--- Généré le : jeu. 23 fév. 2023 à 18:38
+-- Généré le : jeu. 23 fév. 2023 à 19:18
 -- Version du serveur : 10.10.2-MariaDB
 -- Version de PHP : 8.2.0
 
@@ -21,19 +21,6 @@ SET time_zone = "+00:00";
 -- Base de données : `tp`
 --
 
--- --------------------------------------------------------
-
---
--- Structure de la table `categories`
---
-
-DROP TABLE IF EXISTS `categories`;
-CREATE TABLE IF NOT EXISTS `categories` (
-  `idCategorie` int(11) NOT NULL AUTO_INCREMENT,
-  `categorie` varchar(64) NOT NULL,
-  PRIMARY KEY (`idCategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 --
 -- Déchargement des données de la table `categories`
 --
@@ -44,46 +31,6 @@ INSERT INTO `categories` (`idCategorie`, `categorie`) VALUES
 (3, 'Touches'),
 (4, 'Accessoires'),
 (5, 'Tout Inclus');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `messenger_messages`
---
-
-DROP TABLE IF EXISTS `messenger_messages`;
-CREATE TABLE IF NOT EXISTS `messenger_messages` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `body` longtext NOT NULL,
-  `headers` longtext NOT NULL,
-  `queue_name` varchar(190) NOT NULL,
-  `created_at` datetime NOT NULL,
-  `available_at` datetime NOT NULL,
-  `delivered_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_75EA56E0FB7336F0` (`queue_name`),
-  KEY `IDX_75EA56E0E3BD61CE` (`available_at`),
-  KEY `IDX_75EA56E016BA31DB` (`delivered_at`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `produits`
---
-
-DROP TABLE IF EXISTS `produits`;
-CREATE TABLE IF NOT EXISTS `produits` (
-  `idProduit` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(128) NOT NULL,
-  `price` double NOT NULL,
-  `quantity_in_stock` int(11) NOT NULL,
-  `description` varchar(1024) NOT NULL,
-  `image_path` varchar(255) NOT NULL,
-  `categorie` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idProduit`),
-  KEY `IDX_BE2DDF8C497DD634` (`categorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `produits`
@@ -104,16 +51,6 @@ INSERT INTO `produits` (`idProduit`, `name`, `price`, `quantity_in_stock`, `desc
 (12, 'TUT Vacation keycaps SET', 81.99, 12, 'Set complet de touche style vacance de TUT. Elles sont produit par injection de couleur. Compatible avec les touches Cherry MX et similaire. Profile de touche Cherry. Couleur bleu foncé.', '\\img\\keycaps\\TutVacanceKeycaps.jpg', 3),
 (13, 'EPBT YUKIHANA', 99.99, 4, 'Set complet de touche style hiver de ePBT. Elles sont produit par injection de couleur. Compatible avec les touches Cherry MX et similaire. Profile de touche Cherry. Couleur bleu clair et blanc.', 'img\\keycaps\\ePBTHiverKeycaps.jpg', 3),
 (14, 'M7 GAME CONSOLE ARTISAN KEYCAP', 18.99, 48, 'Touche seule en forme de console de jeu fait par M7.\r\nFait d\'aluminium pour le console et de silicone pour les boutons. Pèse 40g. Compatible avec le profile de touche Cherry. RGB compatible face nord', 'img\\keycaps\\M7ConsoleGameKeycap.jpg', 3);
-
---
--- Contraintes pour les tables déchargées
---
-
---
--- Contraintes pour la table `produits`
---
-ALTER TABLE `produits`
-  ADD CONSTRAINT `FK_BE2DDF8C497DD634` FOREIGN KEY (`categorie`) REFERENCES `categories` (`idCategorie`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
