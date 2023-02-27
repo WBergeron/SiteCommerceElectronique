@@ -20,6 +20,7 @@
 
 
     // Back to top button
+    // !!! Aime pas sa avec l'implementation d'axios... Enquêter plus tard je dois... !!!
     $(window).scroll(function () {
         if ($(this).scrollTop() > 100) {
             $('.back-to-top').fadeIn('slow');
