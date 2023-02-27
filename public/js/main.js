@@ -18,7 +18,6 @@
         $(window).resize(toggleNavbarMethod);
     });
 
-
     // Back to top button
     // !!! Aime pas sa avec l'implementation d'axios... Enquêter plus tard je dois... !!!
     $(window).scroll(function () {
