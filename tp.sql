@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3307
--- Généré le : jeu. 02 mars 2023 à 13:26
+-- Généré le : jeu. 02 mars 2023 à 21:00
 -- Version du serveur : 10.10.2-MariaDB
 -- Version de PHP : 8.2.0
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `idCategorie` int(11) NOT NULL AUTO_INCREMENT,
   `categorie` varchar(64) NOT NULL,
   PRIMARY KEY (`idCategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `categories`
@@ -43,7 +43,8 @@ INSERT INTO `categories` (`idCategorie`, `categorie`) VALUES
 (2, 'Frames'),
 (3, 'Touches'),
 (4, 'Accessoires'),
-(5, 'Tout Inclus');
+(5, 'Tout Inclus'),
+(6, 'Composantes');
 
 -- --------------------------------------------------------
 
@@ -62,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `produits` (
   `categorie` int(11) DEFAULT NULL,
   PRIMARY KEY (`idProduit`),
   KEY `IDX_BE2DDF8C497DD634` (`categorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `produits`
@@ -82,7 +83,13 @@ INSERT INTO `produits` (`idProduit`, `name`, `price`, `quantity_in_stock`, `desc
 (11, 'Keychron K2 Pro QMK/VIA Wireless Mechanical Keyboard', 99.99, 50, 'Clavier mécanique en \"hot-swap\", plastique K2 Pro de Keychron. Le clavier est muni de \"Bluetooth 5.1\" se qui permet de se connecter facilement. Format 75%, couleur noir.', 'img/keyboards/Keychron-K2-Pro-QMK-VIA-Black.jpg', 2),
 (12, 'TUT Vacation keycaps SET', 81.99, 12, 'Set complet de touche style vacance de TUT. Elles sont produit par injection de couleur. Compatible avec les touches Cherry MX et similaire. Profile de touche Cherry. Couleur bleu foncé.', 'img\\keycaps\\TutVacanceKeycaps.jpg', 3),
 (13, 'EPBT YUKIHANA', 99.99, 4, 'Set complet de touche style hiver de ePBT. Elles sont produit par injection de couleur. Compatible avec les touches Cherry MX et similaire. Profile de touche Cherry. Couleur bleu clair et blanc.', 'img\\keycaps\\ePBTHiverKeycaps.jpg', 3),
-(14, 'M7 GAME CONSOLE ARTISAN KEYCAP', 18.99, 48, 'Touche seule en forme de console de jeu fait par M7.\r\nFait d\'aluminium pour le console et de silicone pour les boutons. Pèse 40g. Compatible avec le profile de touche Cherry. RGB compatible face nord', 'img\\keycaps\\M7GameConsoleKeycap.jpg', 3);
+(14, 'M7 GAME CONSOLE ARTISAN KEYCAP', 18.99, 48, 'Touche seule en forme de console de jeu fait par M7.\r\nFait d\'aluminium pour le console et de silicone pour les boutons. Pèse 40g. Compatible avec le profile de touche Cherry. RGB compatible face nord', 'img\\keycaps\\M7GameConsoleKeycap.jpg', 3),
+(15, 'DROP CTRL MECHANICAL KEYBOARD', 250, 15, 'Clavier mécanique Drop CTRL. Switch en \"Hot-swap\" avec RGB complètement programmable. Frame en aluminium avec aimant pour ajusté la hauteur des rehausseurs. Keycaps en \"Doubleshot\" PBT. Layout 80% (TKL). Couleur \"Gris espace\".', 'img\\keyboards\\DropCTRLFullKeyboardBrown.jpg', 5),
+(16, 'DROP + THE LORD OF THE RINGS DWARVISH KEYBOARD', 238, 6, 'Clavier mécanique Drop en colaboration avec Lord of the Rings Edition Dwarvish. Switch souder avec lumière arrière blanche. Frame en aluminium. Keycaps en \"Doubleshot\" PBT. Layout 80% (TKL). Couleur gris carbone.', 'img/keyboards/DropDwarvishFullKeyboard.jpg', 5),
+(17, 'DROP ALT KEYBOARD SOFT CARRY CASE', 39.99, 40, 'Sac en polyester à velcro pour clavier 60%. Couleur gris. Dimensions: 13 x 4.7 x 2.2 in (33 x 12 x 5.5 cm)', 'img/accessoires/Drop_SoftCarryCase.jpg', 4),
+(18, 'MSTONE ACRYLIC KEYBOARD DUST COVER', 49.99, 60, 'Couvre clavier d\'acrylic transparent avec des contours en caoutchouc. Protège le clavier de la poussière.', 'img/accessoires/Mstone_DuskCover.jpg', 4),
+(19, 'MSTONE PMMA SOLAR SYSTEM PALM REST', 45.99, 22, 'Repose poignet rigide au motif \"Space\". Grandeur 80%(TKL). Couleur bleu.', 'img/accessoires/Mstone_PalmResterSpace.jpg', 4),
+(20, 'STACK OVERFLOW THE KEY V2 MACROPAD', 42.99, 86, 'Mini clavier en \"Hot-Swap\" et RGB de Stack Overflow. Macro simplifier de copier/coller. Fait d\'acrylic blanc', 'img/keyboard/StackOver_MacroPadV2.jpg', 4);
 
 --
 -- Contraintes pour les tables déchargées
