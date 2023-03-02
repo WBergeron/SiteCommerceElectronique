@@ -26,7 +26,7 @@ SET time_zone = "+00:00";
 --
 -- Structure de la table `categories`
 --
-
+DROP TABLE IF EXISTS `produits`;
 DROP TABLE IF EXISTS `categories`;
 CREATE TABLE IF NOT EXISTS `categories` (
   `idCategorie` int(11) NOT NULL AUTO_INCREMENT,
@@ -51,7 +51,7 @@ INSERT INTO `categories` (`idCategorie`, `categorie`) VALUES
 -- Structure de la table `produits`
 --
 
-DROP TABLE IF EXISTS `produits`;
+
 CREATE TABLE IF NOT EXISTS `produits` (
   `idProduit` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL,
