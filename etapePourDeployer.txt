@@ -1,0 +1,26 @@
+# 1- (A faire une seule fois), sa ajoute un fichier .htaccess
+composer require symfony/apache-pack
+
+# 2-  Avoir le deuxième .htaccess a la racine
+
+# 3- Aller sur cPanel et créer la table
+
+# 4- créer le schema de la table
+symfony console doctrine:schema:create --dump-sql > creation.sql
+
+# 5- Importer la structure creation.sql sur le phpmyadmin de cPanel
+
+# 6- Importer les données dans les tables
+
+# 7- Créer un .env.prod.local avec les credential
+APP_ENV=prod
+DATABASE_URL****
+
+# 8- Doit généré un env avec du php
+composer dump-env prod
+
+# 9- Enlever les .env non utilisé et VAR
+
+# 10- Mettre les fichiers restant dans un .zip
+
+# 11- Aller sur cPanel/GestionnaireDeFichier et upload le .zip dans le fichier du sous-domaine

@@ -2,16 +2,17 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductRepository;
+use App\Repository\ProduitRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ProductRepository::class)]
-class Product
+#[ORM\Entity(repositoryClass: ProduitRepository::class)]
+#[ORM\Table(name: 'produits')]
+class Produit
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column('idProduct')]
-    private ?int $idProduct = null;
+    #[ORM\Column('idProduit')]
+    private ?int $idProduit = null;
 
     #[ORM\Column(length: 128)]
     private ?string $name = null;
@@ -28,9 +29,13 @@ class Product
     #[ORM\Column(length: 255)]
     private ?string $imagePath = null;
 
-    public function getIdProduct(): ?int
+    #[ORM\ManyToOne(targetEntity: Categorie::class, inversedBy: "produits", cascade: ["persist"])]
+    #[ORM\JoinColumn(name: 'categorie', referencedColumnName: 'idCategorie')]
+    private $categorie;
+
+    public function getIdProduit(): ?int
     {
-        return $this->idProduct;
+        return $this->idProduit;
     }
 
     public function getName(): ?string
@@ -42,6 +47,11 @@ class Product
     {
         $this->name = $name;
         return $this;
+    }
+
+    public function getIdCategorie(): ?Categorie
+    {
+        return $this->categorie;
     }
 
     public function getPrice(): ?float

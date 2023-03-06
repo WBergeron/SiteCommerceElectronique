@@ -36,8 +36,9 @@
 				</button>
 				<div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
 					<div class="navbar-nav mr-auto py-0">
-						<a href="index.html" class="nav-item nav-link active">Accueil</a>
-						<a href="shop.html" class="nav-item nav-link">Shop</a>
+						<a href="home" class="nav-item nav-link">Accueil</a>
+						<a href="contact" class="nav-item nav-link">Contact</a>
+						<a href="{{path('app_catalogue')}}" class="nav-item nav-link">Shop</a>
 						<a href="detail.html" class="nav-item nav-link">Detail d'object</a>
 						<div class="nav-item dropdown">
 							<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Achat
@@ -48,16 +49,19 @@
 								<a href="checkout.html" class="dropdown-item">Caisse</a>
 							</div>
 						</div>
-						<form action="">
-				<div class="input-group">
-					<input type="text" class="form-control" placeholder="Chercher un produit">
-					<div class="input-group-append">
-						<span class="input-group-text bg-transparent text-primary">
-							<i class="fa fa-search"></i>
-						</span>
-					</div>
-				</div>
-			</form>
+						
+						<form class="d-flex nav-item m-auto" method="POST" action="{{ app.request.uri }}">
+							<div class="input-group rounded">
+								<div class="input-group-append">
+								<input name="search_field" class="form-control rounded" type="search" placeholder="Chercher un produit">
+									<button type="submit" class="btn">
+										<span class="bg-transparent text-primary">
+											<i class="fa fa-search"></i>
+										</span>
+									</button>
+								</div>
+							</div>
+						</form>
 					</div>
 					<div class="navbar-nav ml-auto py-0 d-none d-lg-block">
 						<a href="" class="btn px-0">

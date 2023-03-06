@@ -1,0 +1,45 @@
+{% extends 'core/base.html.twig' %}
+
+{% block body %}
+	<!--Top bar avec les numéro pour contacter-->
+	{% include 'core/topbar.html.twig' %}
+	{% include 'core/navbar.html.twig' %}
+	{% include 'core/path.html.twig' %}
+
+	<!--Ajout du shop-->
+	<div class="container-fluid">
+		<div
+			class="row px-xl-5">
+			<!--Side bar Trier-->
+			<div class="col-lg-3 col-md-4">
+				{% include 'catalogue/filtrerCategorie.html.twig' %}
+			</div>
+
+			<!--Product Viewer-->
+			<div class="col-lg-9 col-md-8">
+				<div class="row pb-3">
+					{% if produits|length > 0 %}
+						{% for produit in produits %}
+							{% include 'catalogue/produitCard.html.twig' %}
+						{% endfor %}
+					{% else %}
+						<div class="col-lg-4 col-md-6 col-sm-6 pb-1">
+							Ces critères de recherche ne comporte pas encore de produit
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% include 'core/vendor.html.twig' %}
+	{% include 'core/footer.html.twig' %}
+
+	<!--Produit modal-->
+	<div class="modal fade" tabindex="-1" id="produit-modal">
+		<div class="modal-dialog modal-xl modal-dialog-centered">
+			<div id="produit-modal-content" class="modal-content"></div>
+		</div>
+	</div>
+
+{% endblock %}

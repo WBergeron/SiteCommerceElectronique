@@ -1,0 +1,24 @@
+<h5 class="section-title position-relative text-uppercase mb-3">
+	<span class="bg-secondary pr-3">Filtrer par Catégorie</span>
+</h5>
+<div class="bg-light p-4 mb-30">
+	<form>
+		<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+			<a href="{{ path('app_catalogue')}}" style="text-decoration:none">
+				<input type="checkbox" class="custom-control-input" id="categorie_all" checked>
+				<div class="custom-control-label checkBoxCategorie" for="categorie_all" href="{{ path('app_catalogue') }}">Toutes les catégories</div>
+			</a>
+			<span class="badge border font-weight-normal">1000</span>
+		</div>
+
+		{% for categorie in categories %}
+			<div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+				<a href="{{ path('app_catalogue', { categorie: categorie.idCategorie }) }}" style="text-decoration:none">
+					<input type="checkbox" class="custom-control-input" id="categorie_{{categorie.idCategorie}}">
+					<div class="custom-control-label checkBoxCategorie" for="categorie_{{categorie.idCategorie}}">{{categorie.categorie}}</div>
+				</a>
+				<span class="badge border font-weight-normal">150</span>
+			</div>
+		{% endfor %}
+	</form>
+</div>
