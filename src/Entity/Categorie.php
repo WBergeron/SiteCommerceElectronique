@@ -31,12 +31,6 @@ class Categorie
         return $this->categorie;
     }
 
-    public function setCategorie(string $categorie): self
-    {
-        $this->categorie = $categorie;
-        return $this;
-    }
-
     public function getProduits(): Collection
     {
         return $this->produits;
