@@ -21,35 +21,42 @@
                         </tr>
                     </thead>
                     <tbody class="align-middle">
+                    {% if (panier | length) == 0 %}
+                        {% for achat in panier %}
+                            <tr>
+                                <td class="align-middle"><img src="{{asset_if(achat.produit.imagePath, 'img/non-disponible.jpg')}}" alt="" style="width: 50px;">achat</td>
+                                <td class="align-middle">{{achat.prixAchat}}</td>
+                                <td class="align-middle">
+                                    <div class="input-group quantity mx-auto" style="width: 100px;">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-sm btn-primary btn-minus" >
+                                            <i class="fa fa-minus"></i>
+                                            </button>
+                                        </div>
+                                        <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="{{achat.quantite}}">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-sm btn-primary btn-plus">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="align-middle">{{achat.prixAchat * achat.quantite}}</td>
+                                <td class="align-middle"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
                         <tr>
-                            <td class="align-middle"><img src="img/product-1.jpg" alt="" style="width: 50px;">Product Name</td>
-                            <td class="align-middle">$150</td>
-                            <td class="align-middle">
-                                <div class="input-group quantity mx-auto" style="width: 100px;">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-minus" >
-                                        <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="1">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-plus">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="align-middle">$150</td>
-                            <td class="align-middle"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></td>
+                            <td colspan="4" class="align-middle">Vous n'avez rien dans votre panier...<td>
                         </tr>
+                    {% endif %}
+                    
+                    
                     </tbody>
                     <tfoot class="thread-dark">
                         <tr class="">
-                            <td class=""><button class="btn btn-success">Mettre à jour</button></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td class=""><button class="btn btn-danger">Vider le panier</button></td>
+                            <td colspan="2"><button class="btn btn-success">Mettre à jour</button></td>
+                            <td colspan="2"><button class="btn btn-danger">Vider le panier</button></td>
                         <tr>
                     </tfoot>
                 </table>
@@ -68,11 +75,11 @@
                     <div class="border-bottom pb-2">
                         <div class="d-flex justify-content-between mb-3">
                             <h6>Sous-Total</h6>
-                            <h6>$150</h6>
+                            <h6>100$</h6>
                         </div>
                         <div class="d-flex justify-content-between">
                             <h6 class="font-weight-medium">TPS</h6>
-                            <h6 class="font-weight-medium">$10</h6>
+                            <h6 class="font-weight-medium">10$</h6>
                         </div>
                         <div class="d-flex justify-content-between">
                             <h6 class="font-weight-medium">TPQ</h6>

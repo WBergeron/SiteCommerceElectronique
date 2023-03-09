@@ -4,15 +4,20 @@ namespace App\Entity;
 
 class Achat
 {
-    private $idProduit;
+    private $produit;
     private $quantite;
     private $prixAchat;
 
-    public function __construct($idProduit, $quantite, $prixAchat)
+    public function __construct($produit, $quantite, $prixAchat)
     {
-        $this->idProduit = $idProduit;
+        $this->produit = $produit;
         $this->quantite = $quantite;
         $this->prixAchat = $prixAchat;
+    }
+
+    public function getProduit(): Produit
+    {
+        return $this->produit;
     }
 
     public function getQuantite(): ?int
