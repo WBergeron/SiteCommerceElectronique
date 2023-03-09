@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 use App\Entity\Panier;
+use App\Entity\Produit;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,7 +28,7 @@ class PanierController extends AbstractController
         ]);
     }
 
-    #[Route('/panier/ajout/{idProduit}', name: 'ajout_produit', methods: ['POST'])]
+    #[Route('/panier/ajout/{idProduit}', name: 'ajout_produit', methods: ['GET'])]
     public function ajoutAchat($idProduit, Request $request, ManagerRegistry $doctrine): Response
     {
         $this->initSession($request);
@@ -37,7 +38,7 @@ class PanierController extends AbstractController
         $produit = $this->em->getRepository(Produit::class)->find($idProduit);
 
         // Ajouter le produit dans le panier
-        $this->panier->add($produit, 1, $produit->price);
+        $this->panier->ajoutAchat($produit, 1);
 
         // TODO : Ajouter si le produit existe déja
 

@@ -2,8 +2,8 @@
 	<div class="product-item bg-light mb-4">
 		<div class="product-img position-relative overflow-hidden">
 			<img class="img-fluid w-100" src="{{asset_if(produit.imagePath, 'img/non-disponible.jpg')}}" alt="">
-			<form class="product-action" method="POST" action="{{path('ajout_produit', {idProduit: produit.idProduit})}}">
-				<a class="btn btn-outline-dark btn-square" name="ajoutProduit" type="submit">
+			<form class="product-action">
+				<a class="btn btn-outline-dark btn-square" name="ajoutProduit" href="{{path('ajout_produit', {idProduit: produit.idProduit})}}">
 					<i class="fa fa-shopping-cart">
 					</i>
 				</a>
