@@ -4,18 +4,23 @@ namespace App\Entity;
 
 class Panier
 {
-    private $panier = [];
+    private $achats = [];
 
     public function ajoutAchat($produit, $quantite)
     {
         $achat = new Achat($produit, $quantite, $produit->getPrice());
-        $this->panier[] = $achat;
+        $this->achats[] = $achat;
     }
 
-    public function supprimerAchat($index)
+    public function supprimerAchat($produit)
     {
-        if (array_key_exists($index, $this->panier)) {
-            unset($this->panier[$index]);
+        //Regarde s'il est dans le panier
+        foreach ($this->achats as $achat) {
+            if ($produit == $achat->produit) {
+                $achatASupprimer = $achat;
+                // Supprime l'achat dans le panier
+                unset($this->achats[$achatASupprimer]);
+            }
         }
     }
 
@@ -26,6 +31,6 @@ class Panier
 
     public function getPanier()
     {
-        return $this->panier;
+        return $this->achats;
     }
 }

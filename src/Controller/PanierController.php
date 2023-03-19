@@ -24,11 +24,11 @@ class PanierController extends AbstractController
 
         return $this->render('page/panier.html.twig', [
             'name' => $session->get('name'),
-            'panier' => $this->panier,
+            'listAchat' => $this->panier,
         ]);
     }
 
-    #[Route('/panier/ajout/{idProduit}', name: 'ajout_produit', methods: ['GET'])]
+    #[Route('/panier/ajout/{idProduit}', name: 'ajout_achat', methods: ['GET'])]
     public function ajoutAchat($idProduit, Request $request, ManagerRegistry $doctrine): Response
     {
         $this->initSession($request);
@@ -44,6 +44,24 @@ class PanierController extends AbstractController
 
         // Notification
         $this->addFlash('Valider', 'Produit ajoutée avec succès');
+
+        return $this->redirectToRoute('app_panier');
+    }
+
+    #[Route('/panier/supprimer/{idProduit}', name: 'delete_achat')]
+    public function deleteAchat($idProduit, Request $request): Response
+    {
+        $this->initSession($request);
+        $session = $request->getSession();
+
+        // Trouver le produit a supprimer dans le panier
+        $produit = $session->get('panier')->getRepository(Produit::class)->find($idProduit);
+
+        // Supprime le produit dans le panier
+        $this->panier->supprimerAchat($produit);
+
+        // Notification
+        $this->addFlash('Valider', 'Produit supprimer avec succès');
 
         return $this->redirectToRoute('app_panier');
     }
