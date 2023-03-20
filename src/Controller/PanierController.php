@@ -42,7 +42,7 @@ class PanierController extends AbstractController
         // TODO : Ajouter si le produit existe déja
 
         // Notification
-        $this->addFlash('Valider', 'Produit ajoutée avec succès');
+        $this->addFlash('validation', 'Produit ajoutée avec succès');
 
         return $this->redirectToRoute('app_panier');
     }
@@ -51,16 +51,11 @@ class PanierController extends AbstractController
     public function deleteAchat($idProduit, Request $request): Response
     {
         $this->initSession($request);
-        $session = $request->getSession();
-
-        // Trouver le produit a supprimer dans le panier
-        $produit = $session->get('panier')->getRepository(Produit::class)->find($idProduit);
 
         // Supprime le produit dans le panier
-        $this->panier->supprimerAchat($produit);
-
+        $this->panier->supprimerAchat($idProduit);
         // Notification
-        $this->addFlash('Valider', 'Produit supprimer avec succès');
+        $this->addFlash('validation', 'Produit supprimer avec succès');
 
         return $this->redirectToRoute('app_panier');
     }

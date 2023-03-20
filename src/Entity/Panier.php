@@ -17,15 +17,11 @@ class Panier
         $this->achats[] = $achat;
     }
 
-    public function supprimerAchat($produit)
+    public function supprimerAchat($idProduit)
     {
         //Regarde s'il est dans le panier
-        foreach ($this->achats as $achat) {
-            if ($produit == $achat->produit) {
-                $achatASupprimer = $achat;
-                // Supprime l'achat dans le panier
-                unset($this->achats[$achatASupprimer]);
-            }
+        if (array_key_exists($idProduit, $this->achats)) {
+            unset($this->achats[$idProduit]);
         }
     }
 

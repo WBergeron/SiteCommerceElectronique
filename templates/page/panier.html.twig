@@ -12,8 +12,8 @@
 			<div class="col-lg-8 table-responsive mb-5">
 				<form>
 					<table class="table table-light table-borderless table-hover text-center mb-0">
-						{% for flash in app.flashes('Valider') %}
-							<div class="alert">Réussi</div>
+						{% for flash in app.flashes('validation') %}
+							<div class="alert">{{flash.content}}</div>
 						{% endfor %}
 						<thead class="thead-dark">
 							<tr>
@@ -27,7 +27,7 @@
 						</thead>
 						<tbody class="align-middle">
 							{% if (listAchat | length) != 0 %}
-								{% for achat in listAchat.panier %}
+								{% for key, achat in listAchat.panier %}
 								<tr class="panierTable">
 										<td class="align-middle">
 											<img src="{{asset_if(achat.produit.imagePath, 'img/non-disponible.jpg')}}" alt="" style="width: 100px;">
@@ -39,7 +39,7 @@
 											{{ achat.produit.name | u.truncate(30, '...') }}
 										{% endif %}
 										</td>
-										<td class="align-middle">{{achat.prixAchat}}</td>
+										<td class="align-middle">{{achat.prixAchat}} $</td>
 										<td class="align-middle">
 											<div class="input-group quantity mx-auto" style="width: 100px;">
 												<div class="input-group-btn">
@@ -55,10 +55,10 @@
 												</div>
 											</div>
 										</td>
-										<td class="align-middle">{{achat.prixAchat * achat.quantite}}</td>
+										<td class="align-middle">{{achat.prixAchat * achat.quantite}} $</td>
 										<td class="align-middle">
 											<button class="btn btn-sm btn-danger">
-												<i class="fa fa-times"></i>
+												<a href=" {{ path('delete_achat', {idProduit: key}) }}"><i class="fa fa-times"></i></a>
 											</button>
 										</td>
 										</tr>
@@ -102,25 +102,25 @@
 					<div class="border-bottom pb-2">
 						<div class="d-flex justify-content-between mb-3">
 							<h6>Sous-Total</h6>
-							<h6>{{ listAchat.getSommaire | round(2, 'floor') }}$</h6>
+							<h6>{{ listAchat.getSommaire | round(2, 'floor') }} $</h6>
 						</div>
 						<div class="d-flex justify-content-between">
 							<h6 class="font-weight-medium">TPS</h6>
-							<h6 class="font-weight-medium">{{ listAchat.getTps | round(2, 'floor') }}$</h6>
+							<h6 class="font-weight-medium">{{ listAchat.getTps | round(2, 'floor') }} $</h6>
 						</div>
 						<div class="d-flex justify-content-between">
 							<h6 class="font-weight-medium">TVQ</h6>
-							<h6 class="font-weight-medium">{{ listAchat.getTvq | round(2, 'floor') }}$</h6>
+							<h6 class="font-weight-medium">{{ listAchat.getTvq | round(2, 'floor') }} $</h6>
 						</div>
 						<div class="d-flex justify-content-between">
 							<h6 class="font-weight-medium">Frais de livraison</h6>
-							<h6 class="font-weight-medium">{{ listAchat.getFraisLivraison | round(2, 'floor') }}$</h6>
+							<h6 class="font-weight-medium">{{ listAchat.getFraisLivraison | round(2, 'floor') }} $</h6>
 						</div>
 					</div>
 					<div class="pt-2">
 						<div class="d-flex justify-content-between mt-2">
 							<h5>Total</h5>
-							<h5>{{ listAchat.getTotal | round(2, 'floor') }}$</h5>
+							<h5>{{ listAchat.getTotal | round(2, 'floor') }} $</h5>
 						</div>
 						<button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Commander</button>
 					</div>
