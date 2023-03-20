@@ -15,6 +15,11 @@ class Achat
         $this->prixAchat = $prixAchat;
     }
 
+    public function updateQuantite($quantite)
+    {
+        $this->quantite = $quantite;
+    }
+
     public function getProduit(): Produit
     {
         return $this->produit;

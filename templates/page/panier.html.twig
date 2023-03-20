@@ -10,10 +10,10 @@
 	<div class="container-fluid">
 		<div class="row px-xl-5">
 			<div class="col-lg-8 table-responsive mb-5">
-				<form>
+				<form action="{{ path('update_achat') }}" method="POST">
 					<table class="table table-light table-borderless table-hover text-center mb-0">
 						{% for flash in app.flashes('validation') %}
-							<div class="alert">{{flash.content}}</div>
+							<div class="alert">{{ flash }}</div>
 						{% endfor %}
 						<thead class="thead-dark">
 							<tr>
@@ -47,7 +47,7 @@
 														<i class="fa fa-minus"></i>
 													</button>
 												</div>
-												<input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="{{achat.quantite}}">
+												<input name="{{'quantiteAchat[' ~ key ~ ']'}}" type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="{{achat.quantite}}">
 												<div class="input-group-btn">
 													<button class="btn btn-sm btn-primary btn-plus">
 														<i class="fa fa-plus"></i>
@@ -57,9 +57,9 @@
 										</td>
 										<td class="align-middle">{{achat.prixAchat * achat.quantite}} $</td>
 										<td class="align-middle">
-											<button class="btn btn-sm btn-danger">
+											<div class="btn btn-sm btn-danger">
 												<a href=" {{ path('delete_achat', {idProduit: key}) }}"><i class="fa fa-times"></i></a>
-											</button>
+											</div>
 										</td>
 										</tr>
 								{% endfor %}

@@ -13,21 +13,36 @@ class Panier
 
     public function ajoutAchat($produit, $quantite)
     {
+        // si existe déja ++quantite
+        foreach ($this->achats as $achat) {
+            // TODO: Doit ajouter une quantité
+            //if ($achat->getProduit() = $produit) {
+            //    $quantite++;
+            //}
+        }
         $achat = new Achat($produit, $quantite, $produit->getPrice());
         $this->achats[] = $achat;
     }
 
-    public function supprimerAchat($idProduit)
+    public function supprimerAchat($index)
     {
         //Regarde s'il est dans le panier
-        if (array_key_exists($idProduit, $this->achats)) {
-            unset($this->achats[$idProduit]);
+        if (array_key_exists($index, $this->achats)) {
+            unset($this->achats[$index]);
         }
     }
 
     public function modifierAchat($nouveauPanier)
     {
-        // TODO: Appeler cette méthode quand on veut changer un item
+        // Verifier la quantité des produit et les updates
+        if (count($this->achats) > 0) {
+            $achatsQuantites = $nouveauPanier["quantiteAchat"];
+
+            foreach ($this->achats as $key => $achat) {
+                $nouvelleQuantite = $achatsQuantites[$key];
+                $achat->updateQuantite($nouvelleQuantite);
+            }
+        }
     }
 
     public function getPanier()

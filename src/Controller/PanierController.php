@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Panier;
 use App\Entity\Produit;
+use App\Core\Notification;
+use App\Core\NotificationColor;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,10 +41,30 @@ class PanierController extends AbstractController
         // Ajouter le produit dans le panier
         $this->panier->ajoutAchat($produit, 1);
 
-        // TODO : Ajouter si le produit existe déja
-
         // Notification
         $this->addFlash('validation', 'Produit ajoutée avec succès');
+
+        return $this->redirectToRoute('app_panier');
+    }
+
+    #[Route('/panier/update', name: 'update_achat', methods: ['POST'])]
+    public function updateTodo(Request $request): Response
+    {
+        $post = $request->request->all();
+        $this->initSession($request);
+
+        $action = $request->request->get('action');
+
+        if ($action == "rafraichir") {
+            $this->panier->modifierAchat($post);
+            $this->addFlash(
+                'validation',
+                new Notification('success', 'Tâches sauvegardée', NotificationColor::INFO)
+            );
+        } else if ($action == "vider") {
+            $session = $request->getSession();
+            $session->remove('panier');
+        }
 
         return $this->redirectToRoute('app_panier');
     }
