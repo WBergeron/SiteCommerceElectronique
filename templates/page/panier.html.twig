@@ -32,13 +32,12 @@
 										<td class="align-middle">
 											<img src="{{asset_if(achat.produit.imagePath, 'img/non-disponible.jpg')}}" alt="" style="width: 100px;">
 										</td class="align-middle">
-										{% if (achat.produit.name | length) <= 20%}
+										<td class="align-middle">
+										{% if (achat.produit.name | length) <= 30%}
 											{{ achat.produit.name }}
 										{% else %}
-											{{ achat.produit.name | u.truncate(20, '...') }}
+											{{ achat.produit.name | u.truncate(30, '...') }}
 										{% endif %}
-											
-										<td>
 										</td>
 										<td class="align-middle">{{achat.prixAchat}}</td>
 										<td class="align-middle">
