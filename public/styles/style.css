@@ -215,6 +215,7 @@ svg {
   vertical-align: middle;
 }
 
+/*Voir si sa enlève l'espacement*/
 table {
   border-collapse: collapse;
 }
@@ -10904,4 +10905,9 @@ h6 {
   position: sticky;
   top: 0px;
   z-index: 100;
+}
+
+.panierTable {
+  padding: 0px !important;
+  margin: 0px !important;
 }

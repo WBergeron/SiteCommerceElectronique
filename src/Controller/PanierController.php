@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Panier;
 use App\Entity\Produit;
 use Doctrine\Persistence\ManagerRegistry;

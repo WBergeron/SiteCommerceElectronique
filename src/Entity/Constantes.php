@@ -1,8 +1,10 @@
 <?php
 
-class Constantes
+namespace App\Entity;
+
+abstract class Constantes
 {
-    public $FRAIS_LIVRAISON = 10;
-    public $TPS = 0.05;
-    public $TVQ = 0.09975;
+    static public int $FRAIS_LIVRAISON = 10;
+    static public float $TPS = 0.05;
+    static public float $TVQ = 0.09975;
 }
