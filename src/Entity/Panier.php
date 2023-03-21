@@ -40,7 +40,11 @@ class Panier
 
             foreach ($this->achats as $key => $achat) {
                 $nouvelleQuantite = $achatsQuantites[$key];
-                $achat->updateQuantite($nouvelleQuantite);
+                if ($nouvelleQuantite <= 0) {
+                    unset($this->achats[$key]);
+                } else {
+                    $achat->updateQuantite($nouvelleQuantite);
+                }
             }
         }
     }
@@ -54,7 +58,7 @@ class Panier
     {
         $this->sommaire = 0;
         foreach ($this->achats as $achat) {
-            $this->sommaire += $achat->getPrixAchat();
+            $this->sommaire += ($achat->getPrixAchat() * $achat->getQuantite());
         }
         return $this->sommaire;
     }

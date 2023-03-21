@@ -42,7 +42,10 @@ class PanierController extends AbstractController
         $this->panier->ajoutAchat($produit, 1);
 
         // Notification
-        $this->addFlash('validation', 'Produit ajoutée avec succès');
+        $this->addFlash(
+            'validation',
+            new Notification('success', 'Le produit a été ajouté dans votre panier', NotificationColor::SUCCESS)
+        );
 
         return $this->redirectToRoute('app_panier');
     }
@@ -59,11 +62,15 @@ class PanierController extends AbstractController
             $this->panier->modifierAchat($post);
             $this->addFlash(
                 'validation',
-                new Notification('success', 'Tâches sauvegardée', NotificationColor::INFO)
+                new Notification('success', 'Votre panier à été mit à jour', NotificationColor::INFO)
             );
         } else if ($action == "vider") {
             $session = $request->getSession();
             $session->remove('panier');
+            $this->addFlash(
+                'validation',
+                new Notification('success', 'Votre panier à été vidé', NotificationColor::INFO)
+            );
         }
 
         return $this->redirectToRoute('app_panier');
@@ -77,7 +84,10 @@ class PanierController extends AbstractController
         // Supprime le produit dans le panier
         $this->panier->supprimerAchat($idProduit);
         // Notification
-        $this->addFlash('validation', 'Produit supprimer avec succès');
+        $this->addFlash(
+            'validation',
+            new Notification('success', 'Le produit a été supprimé du panier', NotificationColor::SUCCESS)
+        );
 
         return $this->redirectToRoute('app_panier');
     }

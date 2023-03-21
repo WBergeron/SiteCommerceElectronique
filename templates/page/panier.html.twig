@@ -10,11 +10,11 @@
 	<div class="container-fluid">
 		<div class="row px-xl-5">
 			<div class="col-lg-8 table-responsive mb-5">
+				{% for flash in app.flashes('validation') %}
+					<div class="alert">{{ flash.content }}</div>
+				{% endfor %}
 				<form action="{{ path('update_achat') }}" method="POST">
 					<table class="table table-light table-borderless table-hover text-center mb-0">
-						{% for flash in app.flashes('validation') %}
-							<div class="alert">{{ flash }}</div>
-						{% endfor %}
 						<thead class="thead-dark">
 							<tr>
 								<th>Produits</th>
@@ -26,108 +26,108 @@
 							</tr>
 						</thead>
 						<tbody class="align-middle">
-							{% if (listAchat | length) != 0 %}
+							{% if (listAchat.panier | length) != 0 %}
 								{% for key, achat in listAchat.panier %}
-								<tr class="panierTable">
-										<td class="align-middle">
-											<img src="{{asset_if(achat.produit.imagePath, 'img/non-disponible.jpg')}}" alt="" style="width: 100px;">
-										</td class="align-middle">
-										<td class="align-middle">
-										{% if (achat.produit.name | length) <= 30%}
-											{{ achat.produit.name }}
-										{% else %}
-											{{ achat.produit.name | u.truncate(30, '...') }}
-										{% endif %}
-										</td>
-										<td class="align-middle">{{achat.prixAchat}} $</td>
-										<td class="align-middle">
-											<div class="input-group quantity mx-auto" style="width: 100px;">
-												<div class="input-group-btn">
-													<button class="btn btn-sm btn-primary btn-minus">
-														<i class="fa fa-minus"></i>
-													</button>
-												</div>
-												<input name="{{'quantiteAchat[' ~ key ~ ']'}}" type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="{{achat.quantite}}">
-												<div class="input-group-btn">
-													<button class="btn btn-sm btn-primary btn-plus">
-														<i class="fa fa-plus"></i>
-													</button>
-												</div>
-											</div>
-										</td>
-										<td class="align-middle">{{achat.prixAchat * achat.quantite}} $</td>
-										<td class="align-middle">
-											<div class="btn btn-sm btn-danger">
-												<a href=" {{ path('delete_achat', {idProduit: key}) }}"><i class="fa fa-times"></i></a>
-											</div>
-										</td>
-										</tr>
-								{% endfor %}
-							{% else %}
-								<tr>
-									<td colspan="4" class="align-middle">Vous n'avez rien dans votre panier...</td>
-									<td></td>
-								</tr>
-							{% endif %}
-
-
+									<td class="align-middle">
+										<img src="{{asset_if(achat.produit.imagePath, 'img/non-disponible.jpg')}}" alt="" style="width: 100px;"></td>
+								</td>
+								<td class="align-middle">
+									{% if (achat.produit.name | length) <= 30%}
+										{{ achat.produit.name }}
+									{% else %}
+										{{ achat.produit.name | u.truncate(30, '...') }}
+									{% endif %}
+								</td>
+								<td class="align-middle">{{achat.prixAchat}}
+									$</td>
+								<td class="align-middle">
+									<div class="input-group quantity mx-auto" style="width: 100px;">
+										<div class="input-group-btn">
+											<button class="btn btn-sm btn-primary btn-minus" type="button">
+												<i class="fa fa-minus"></i>
+											</button>
+										</div>
+										<input name="{{'quantiteAchat[' ~ key ~ ']'}}" type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="{{achat.quantite}}">
+										<div class="input-group-btn">
+											<button class="btn btn-sm btn-primary btn-plus" type="button">
+												<i class="fa fa-plus"></i>
+											</button>
+										</div>
+									</div>
+								</td>
+								<td class="align-middle">{{achat.prixAchat * achat.quantite}}
+									$</td>
+								<td class="align-middle">
+									<a href=" {{ path('delete_achat', {idProduit: key}) }}">
+										<div class="btn btn-sm btn-danger">
+											<i class="fa fa-times"></i>
+										</div>
+									</a>
+								</td>
+							</tbody>
 						</tbody>
-						<tfoot class="thread-dark">
-							<tr class="">
-								<td colspan="2">
-									<button class="btn btn-success" name="action" value="rafraichir" type="submit">Mettre à jour</button>
-								</td>
-								<td colspan="2">
-									<button class="btn btn-danger" name="action" value="vider" type="submit">Vider le panier</button>
-								</td>
-							</tr>
-							<tr></tr>
-						</tfoot>
-					</table>
-				</form>
-			</div>
-			<div class="col-lg-4">
-				<form class="mb-30" action="">
-					<div class="input-group">
-						<input type="text" class="form-control border-0 p-4" placeholder="Code">
-						<div class="input-group-append">
-							<button class="btn btn-primary">Coupon promo</button>
-						</div>
-					</div>
-				</form>
-				<h5 class="section-title position-relative text-uppercase mb-3">
-					<span class="bg-secondary pr-3">Sommaire</span>
-				</h5>
-				<div class="bg-light p-30 mb-5">
-					<div class="border-bottom pb-2">
-						<div class="d-flex justify-content-between mb-3">
-							<h6>Sous-Total</h6>
-							<h6>{{ listAchat.getSommaire | round(2, 'floor') }} $</h6>
-						</div>
-						<div class="d-flex justify-content-between">
-							<h6 class="font-weight-medium">TPS</h6>
-							<h6 class="font-weight-medium">{{ listAchat.getTps | round(2, 'floor') }} $</h6>
-						</div>
-						<div class="d-flex justify-content-between">
-							<h6 class="font-weight-medium">TVQ</h6>
-							<h6 class="font-weight-medium">{{ listAchat.getTvq | round(2, 'floor') }} $</h6>
-						</div>
-						<div class="d-flex justify-content-between">
-							<h6 class="font-weight-medium">Frais de livraison</h6>
-							<h6 class="font-weight-medium">{{ listAchat.getFraisLivraison | round(2, 'floor') }} $</h6>
-						</div>
-					</div>
-					<div class="pt-2">
-						<div class="d-flex justify-content-between mt-2">
-							<h5>Total</h5>
-							<h5>{{ listAchat.getTotal | round(2, 'floor') }} $</h5>
-						</div>
-						<button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Commander</button>
-					</div>
-				</div>
-			</div>
+					</tr>
+				{% endfor %}
+			{% else %}
+				<tr>
+					<td colspan="5" class="align-middle">Vous n'avez rien dans votre panier...</td>
+					<td></td>
+				</tr>
+			{% endif %}
+		</tbody>
+		<tfoot class="thread-dark">
+			<tr class="">
+				<td colspan="3">
+					<button class="btn btn-success" name="action" value="rafraichir" type="submit">Mettre à jour</button>
+				</td>
+				<td colspan="2">
+					<button class="btn btn-danger" name="action" value="vider" type="submit">Vider le panier</button>
+				</td>
+			</tr>
+			<tr></tr>
+		</tfoot>
+	</table>
+</form></div><div class="col-lg-4">
+<form class="mb-30" action="">
+	<div class="input-group">
+		<input type="text" class="form-control border-0 p-4" placeholder="Code">
+		<div class="input-group-append">
+			<button class="btn btn-primary">Coupon promo</button>
 		</div>
 	</div>
-
-	{% include 'core/footer.html.twig' %}
-{% endblock %}
+</form>
+<h5 class="section-title position-relative text-uppercase mb-3">
+	<span class="bg-secondary pr-3">Sommaire</span>
+</h5>
+<div class="bg-light p-30 mb-5">
+	<div class="border-bottom pb-2">
+		<div class="d-flex justify-content-between mb-3">
+			<h6>Sous-Total</h6>
+			<h6>{{ listAchat.getSommaire | round(2, 'floor') }}
+				$</h6>
+		</div>
+		<div class="d-flex justify-content-between">
+			<h6 class="font-weight-medium">TPS</h6>
+			<h6 class="font-weight-medium">{{ listAchat.getTps | round(2, 'floor') }}
+				$</h6>
+		</div>
+		<div class="d-flex justify-content-between">
+			<h6 class="font-weight-medium">TVQ</h6>
+			<h6 class="font-weight-medium">{{ listAchat.getTvq | round(2, 'floor') }}
+				$</h6>
+		</div>
+		<div class="d-flex justify-content-between">
+			<h6 class="font-weight-medium">Frais de livraison</h6>
+			<h6 class="font-weight-medium">{{ listAchat.getFraisLivraison | round(2, 'floor') }}
+				$</h6>
+		</div>
+	</div>
+	<div class="pt-2">
+		<div class="d-flex justify-content-between mt-2">
+			<h5>Total</h5>
+			<h5>{{ listAchat.getTotal | round(2, 'floor') }}
+				$</h5>
+		</div>
+		<button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Commander</button>
+	</div>
+</div></div></div></div>{% include 'core/footer.html.twig' %}{% endblock %}
