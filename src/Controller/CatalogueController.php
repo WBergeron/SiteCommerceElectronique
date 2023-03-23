@@ -47,6 +47,8 @@ class CatalogueController extends AbstractController
         $this->em = $doctrine->getManager();
         $produit = $this->em->getRepository(Produit::class)->find($idProduit);
 
+        // Le idCategorie ne peut pas get???
+
         return $this->render('catalogue/produit.modal.twig', ['produit' => $produit]);
     }
 }
