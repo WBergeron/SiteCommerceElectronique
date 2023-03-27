@@ -11,7 +11,9 @@
 		<div class="row px-xl-5">
 			<div class="col-lg-8 table-responsive mb-5">
 				{% for flash in app.flashes('validation') %}
-					<div class="alert">{{ flash.content }}</div>
+					<div class="alert alert-info">						
+						{{ flash.content }}
+					</div>
 				{% endfor %}
 				<form action="{{ path('update_achat') }}" method="POST">
 					<table class="table table-light table-borderless table-hover text-center mb-0">
