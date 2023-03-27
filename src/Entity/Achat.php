@@ -20,6 +20,11 @@ class Achat
         $this->quantite = $quantite;
     }
 
+    public function quantitePlus()
+    {
+        $this->quantite = $this->quantite + 1;
+    }
+
     public function getProduit(): Produit
     {
         return $this->produit;

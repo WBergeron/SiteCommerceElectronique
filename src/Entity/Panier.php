@@ -15,16 +15,13 @@ class Panier
     {
         // si existe déja ++quantite
         foreach ($this->achats as $achat) {
-            // Fonctionne pas
             if ($achat->getProduit()->getIdProduit() == $produit->getIdProduit()) {
-                $quantite++;
-                $achat->getQuantite() == $quantite;
+                $achat->quantitePlus();
+                return;
             }
         }
-        if ($quantite = 1) {
-            $achat = new Achat($produit, $quantite, $produit->getPrice());
-            $this->achats[] = $achat;
-        }
+        $achat = new Achat($produit, $quantite, $produit->getPrice());
+        $this->achats[] = $achat;
     }
 
     public function supprimerAchat($index)
