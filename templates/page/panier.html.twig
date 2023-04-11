@@ -11,7 +11,7 @@
 		<div class="row px-xl-5">
 			<div class="col-lg-8 table-responsive mb-5">
 				{% for flash in app.flashes('validation') %}
-					<div class="alert alert-info">						
+					<div class="alert alert-info">
 						{{ flash.content }}
 					</div>
 				{% endfor %}

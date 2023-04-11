@@ -10917,3 +10917,8 @@ h6 {
   border-radius: 4px;
 
 }
+
+.connecterTopBar a {
+  text-decoration: none;
+
+}
