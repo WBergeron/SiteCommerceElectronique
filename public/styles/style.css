@@ -10922,3 +10922,16 @@ h6 {
   text-decoration: none;
 
 }
+
+.client-form-divider {
+  width: 1px;
+  height: 240px;
+  margin: 0px 50px;
+  position: relative;
+  z-index: 1;
+}
+
+.client-form-button {
+  text-align: center;
+  width: 100%;
+}

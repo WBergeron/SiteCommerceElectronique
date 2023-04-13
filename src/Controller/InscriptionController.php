@@ -48,7 +48,7 @@ class InscriptionController extends AbstractController
         }
 
         return $this->render('registration/creationCompte.html.twig', [
-            'registrationForm' => $form->createView(),
+            'inscriptionForm' => $form->createView(),
         ]);
     }
 }

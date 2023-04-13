@@ -5,28 +5,65 @@
 	{% include 'core/topbar.html.twig' %}
 	{% include 'core/navbar.html.twig' %}
 
-	<h1 class="mt-5">Connexion</h1>
-	{% if notification %}
-		<div class="alert {{ notification.color }}">{{ notification.content }}</div>
-	{% endif %}
-	<form action="{{ path('app_connection') }}" method="post">
-		<div class="form-outline mb-4">
-			<label class="form-label" for="courriel">Courriel d'utilisateur:</label>
-			<input class="form-control" type="text" id="courriel" name="_courriel" value="{{ dernier_courriel }}">
+	<div class="container-fluid">
+		<h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
+			<span class="bg-secondary pr-3">Connexion</span>
+		</h2>
+		<div class="row px-xl-5 justify-content-center">
+			<div class="col-lg-8 mb-5">
+				<div class="bg-light p-30">
+					<div class="row justify-content-center">
+						<div class="col-12">
+							<label class="">Bienvenue!</label>
+						</div>
+					</div>
+					{% if notification %}
+						<div class="alert {{ notification.color }}">{{ notification.content }}</div>
+					{% endif %}
+					<div class="row">
+						<div class="col-3">
+							<img src="/img/android-chrome-512x512.png" class="mx-auto d-block" alt="logo" width="300px" height="300px">
+						</div>
+						<div class="client-form-divider"></div>
+						<div class="col-7">
+							<form action="{{ path('app_connection') }}" method="post">
+								<div class="form-outline mb-4">
+									<label class="form-label" for="courriel">Courriel d'utilisateur:</label>
+									<div class="input-group mb-3">
+										<span class="input-group-text">
+											<img class="fa fa-envelope prefix grey-text mr-3"></span>
+										<input class="form-control validate" type="text" id="courriel" name="_courriel" value="{{ dernier_courriel }}" placeholder="Votre courriel" value required>
+									</div>
+								</div>
+
+								<div class="form-outline mb-4">
+									<label class="form-label" for="password">Mot de passe:</label>
+									<div class="input-group mb-3">
+										<span class="input-group-text">
+											<img class="fa fa-lock prefix grey-text mr-3"></span>
+										<input class="form-control" type="password" id="password" name="_password" placeholder="Votre Mot De Passe">
+									</div>
+								</div>
+
+								{# If you want to control the URL the user is redirected to on success #}
+								<input type="hidden" name="_target_path" value="{{ path('app_profile') }}">
+
+								<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+								<div class="client-form-button">
+									<button type="submit" class="btn btn-primary">Connexion</button>
+									<p class="mt-3">
+										Toujours pas de compte?
+										<a href="/register">Créer un compte ici</a>
+									</p>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-
-		<div class="form-outline mb-4">
-			<label class="form-label" for="password">Mot de passe:</label>
-			<input class="form-control" type="password" id="password" name="_password">
-		</div>
-
-		{# If you want to control the URL the user is redirected to on success #}
-		<input type="hidden" name="_target_path" value="{{ path('app_profile') }}">
-
-		<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-		<button type="submit" class="btn btn-primary">Connexion</button>
-	</form>
+	</div>
 
 	{% include 'core/footer.html.twig' %}
 {% endblock %}
