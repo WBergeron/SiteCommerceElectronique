@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
+use App\Repository\ClientRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -17,19 +17,19 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(name: "idClient")]
     private ?int $idClient = null;
 
-    #[ORM\Column(length: 255, unique: true)]
+    #[ORM\Column(name: "courriel", length: 255, unique: true)]
     #[Assert\Email(message: "Votre adresse courriel: {{ value }} est invalide")]
     private ?string $courriel = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(name: "nom", length: 50)]
     #[Assert\Length(min: 2, minMessage: "Votre nom doit contenir {{ limit }} caractères minimum")]
     #[Assert\Length(max: 30, maxMessage: "Votre nom doit contenir {{ limit }} caractères maximum")]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(name: "prenom", length: 50)]
     #[Assert\Length(min: 2, minMessage: "Votre prenom doit contenir {{ limit }} caractères minimum")]
     #[Assert\Length(max: 30, maxMessage: "Votre prenom doit contenir {{ limit }} caractères maximum")]
     private ?string $prenom = null;
@@ -37,24 +37,24 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $password = null;
 
-    #[ORM\Column(length: 101)]
+    #[ORM\Column(name: "adresse", length: 101)]
     #[Assert\Length(min: 5, minMessage: "Votre adresse doit contenir {{ limit }} caractères minimum")]
     #[Assert\Length(max: 100, maxMessage: "Votre adresse doit contenir {{ limit }} caractères maximum")]
     private ?string $adresse = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(name: "ville", length: 50)]
     #[Assert\Length(min: 2, minMessage: "La ville doit contenir {{ limit }} caractères minimum")]
     #[Assert\Length(max: 30, maxMessage: "La ville doit contenir {{ limit }} caractères maximum")]
     private ?string $ville = null;
 
-    #[ORM\Column(length: 10)]
+    #[ORM\Column(name: "codePostal", length: 10)]
     #[Assert\Regex(pattern: "/^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?\d[ABCEGHJ-NPRSTV-Z]\d$/i", message: "Le code postal de ne respecte pas le format Canadien")]
     private ?string $codePostal = null;
 
-    #[ORM\Column(length: 2)]
+    #[ORM\Column(name: "province", length: 2)]
     private ?string $province = null;
 
-    #[ORM\Column(length: 20, nullable: true)]
+    #[ORM\Column(name: "telephone", length: 20, nullable: true)]
     #[Assert\Regex(pattern: "/^[0-9]{10}$/", message: "Votre téléphone doit contenir 10 chiffres")]
     private ?string $telephone = null;
 

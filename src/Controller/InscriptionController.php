@@ -47,7 +47,7 @@ class InscriptionController extends AbstractController
             return $this->redirectToRoute('app_catalogue');
         }
 
-        return $this->render('registration/creationCompte.html.twig', [
+        return $this->render('inscription/creationCompte.html.twig', [
             'inscriptionForm' => $form->createView(),
         ]);
     }

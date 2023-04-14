@@ -8,7 +8,7 @@ security:
         app_user_provider:
             entity:
                 class: App\Entity\Client
-                property: idClient
+                property: courriel
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -19,8 +19,10 @@ security:
             form_login:
                 login_path: app_connection
                 check_path: app_connection
+                username_parameter: _courriel
+                password_parameter: _password
                 enable_csrf: true
-
+                
             logout:
                 path: app_deconnection
 
