@@ -1,28 +1,25 @@
-$(document).ready(() => {
+$(document).ready(function () {
 
     // Masque pour le téléphone
     $('.txtTelephone').mask('000-000-0000', { placeholder: '___-___-____' });
 
-    /*
-    //Masque poue la BETA KEY
-    $('.txtBetaKey').mask('A00000-ZZZZ-ZZZZ-ZZZZ-E', {
-        placeholder: '_____-____-____-____-_',
+    // Pour le code Postal
+    $('.txtCodePostal').mask('ANA NAN', {
+        placeholder: '___-___',
         translation: {
-            A: { pattern: /[YyKk]/ },
-            Z: { pattern: /[a-zA-Z0-9]/ },
-            E: { pattern: /[AaBb]/ }
+            A: { pattern: /[a-zA-Z]/ },
+            N: { pattern: /[0-9]/ }
         }
+
     });
 
-    $('.txtBetaKey').keyup(function () {
+    $('.txtCodePostal').keyup(function () {
         $(this).val($(this).val().toUpperCase());
     });
-    */
 
     const registrationForm = document.querySelectorAll('.needs-validation-register');
 
     addValidationToForm(registrationForm);
-
 });
 
 function addValidationToForm(forms) {

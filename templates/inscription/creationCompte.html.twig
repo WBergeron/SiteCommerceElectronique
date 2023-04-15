@@ -6,69 +6,63 @@
 	{% include 'core/topbar.html.twig' %}
 	{% include 'core/navbar.html.twig' %}
 
-	<h1 class="mt-5">Création d'un compte</h1>
-	<div class="row">
-		<div class="col-lg-8 mx-auto">
-			<p>Si vous possédez déjà un compte client, veuillez vous
-				<a href="{{ path('app_connection') }}">connectez ici</a>
-			</p>
-			{% for flash in app.flashes('register')%}
-				<div class="alert my-3 {{ flash.color }}">{{ flash.content }}</div>
-			{% endfor %}
-			{{ form_start(inscriptionForm, {'attr': {'class': 'needs-validation-register', 'novalidate': 'novalidate' }}) }}
-			<div class="row">
-				<div class="col-12">
-					{{ form_row(inscriptionForm.courriel) }}
+	<div class="container-fluid">
+		<h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
+			<span class="bg-secondary pr-3">Inscription</span>
+		</h2>
+		<div class="row px-xl-5">
+			<div class="col-lg-8 mx-auto bg-light p-30">
+				{% for flash in app.flashes('register')%}
+					<div class="alert my-3 {{ flash.color }}">{{ flash.content }}</div>
+				{% endfor %}
+				{{ form_start(inscriptionForm, {'attr': {'class': 'needs-validation-register', 'novalidate': 'novalidate' }}) }}
+				<div class="row">
+					<div class="col-12">
+						{{ form_row(inscriptionForm.courriel) }}
+					</div>
 				</div>
+				<div class="row">
+					<div class="col-6">
+						{{ form_row(inscriptionForm.nom) }}
+					</div>
+					<div class="col-6">
+						{{ form_row(inscriptionForm.prenom) }}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-6">
+						{{ form_row(inscriptionForm.password.first) }}
+					</div>
+					<div class="col-6">
+						{{ form_row(inscriptionForm.password.second) }}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-8">
+						{{ form_row(inscriptionForm.adresse) }}
+					</div>
+					<div class="col-4">
+						{{ form_row(inscriptionForm.ville) }}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-4">
+						{{ form_row(inscriptionForm.codePostal, {'attr': {'class': 'txtCodePostal'}}) }}
+					</div>
+					<div class="col-4">
+						{{ form_row(inscriptionForm.province, {'attr': {'class': 'form_select'}})}}
+					</div>
+					<div class="col-4">
+						{{ form_row(inscriptionForm.telephone, {'attr': {'class': 'txtTelephone'}}) }}
+					</div>
+				</div>
+				<div class="d-flex justify-content-center">
+					{{ form_row(inscriptionForm.create) }}
+				</div>
+				{{ form_end(inscriptionForm) }}
 			</div>
-			<div class="row">
-				<div class="col-6">
-					{{ form_row(inscriptionForm.nom) }}
-				</div>
-				<div class="col-6">
-					{{ form_row(inscriptionForm.prenom) }}
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-6">
-					{{ form_row(inscriptionForm.password.first) }}
-				</div>
-				<div class="col-6">
-					{{ form_row(inscriptionForm.password.second) }}
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-8">
-					{{ form_row(inscriptionForm.adresse) }}
-				</div>
-				<div class="col-4">
-					{{ form_row(inscriptionForm.ville) }}
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-4">
-					{{ form_row(inscriptionForm.codePostal, {'attr': {'class': 'txtCodePostal'}}) }}
-				</div>
-				<div class="col-4">
-					{{ form_row(inscriptionForm.province) }}
-				</div>
-				<div class="col-4">
-					{{ form_row(inscriptionForm.telephone, {'attr': {'class': 'txtTelephone'}}) }}
-				</div>
-			</div>
-			<div class="d-flex justify-content-center">
-				{{ form_row(inscriptionForm.create) }}
-			</div>
-			{{ form_end(inscriptionForm) }}
 		</div>
 	</div>
 
 	{% include 'core/footer.html.twig' %}
-{% endblock %}
-
-{% block stylesheets %}{% endblock %}
-
-{% block javascripts %}
-	<script defer src="https://cdn.jsdelivr.net/npm/jquery-mask-plugin@1.14.16/dist/jquery.mask.min.js"></script>
-	<script defer src="{{ asset('scripts/register.js')}}"></script>
 {% endblock %}
