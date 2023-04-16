@@ -5,13 +5,17 @@ namespace App\Controller;
 use App\Core\Notification;
 use App\Core\NotificationColor;
 use App\Form\ModificationClientFormType;
+use App\Entity\Client;
+use App\Form\ModificationMDPFormType;
 use Symfony\Bundle\SecurityBundle\Security;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactory;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ProfileController extends AbstractController
 {
@@ -19,26 +23,62 @@ class ProfileController extends AbstractController
     public function index(
         Request $request,
         Security $security,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        UserPasswordHasherInterface $userPasswordHasher
     ): Response {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
+        /** @var \App\Entity\Client $clienActuel */
         $clientActuel = $this->getUser();
+        $clientActuel = (object)$clientActuel;
 
+        /// Form de modification des infos du Client
         // Doit faire la manip d'attribuer les valeur du Form
-        $form = $this->createForm(ModificationClientFormType::class, $clientActuel);
-        $form->handleRequest($request);
+        $formClient = $this->createForm(ModificationClientFormType::class, $clientActuel);
+        $formClient->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($formClient->isSubmitted() && $formClient->isValid()) {
             $entityManager->persist($clientActuel);
             $entityManager->flush();
 
             $security->login($clientActuel);
         }
 
+        /// Form de modification du MTD du Client
+        $formPassword = $this->createForm(ModificationMDPFormType::class);
+        $formPassword->handleRequest($request);
+
+        if ($formPassword->isSubmitted() && $formPassword->isValid()) {
+            $factory = new PasswordHasherFactory([
+                'sodium' => ['algorithm' => 'sodium']
+            ]);
+
+            $hasher = $factory->getPasswordHasher('sodium');
+
+            // Vérification si le password actuel entrer est valide
+            if ($hasher->verify($clientActuel->getPassword(), $formPassword->get('passwordActuel')->getData())) {
+                // On peut prendre le nouveau mot de passe pour le mettre en base de données
+                // encode the plain password (le nouveau)
+                $clientActuel->setPassword(
+                    $userPasswordHasher->hashPassword(
+                        $clientActuel,
+                        $formPassword->get('passwordModif')->getData()
+                    )
+                );
+
+                $entityManager->persist($clientActuel);
+                $entityManager->flush();
+
+                $security->login($clientActuel);
+
+                return $this->redirectToRoute('app_profile');
+            }
+        }
+
         return $this->render('profile/profile.html.twig', [
             'clientActuel' => $clientActuel,
-            'modificationForm' => $form->createView(),
+            'modificationClientForm' => $formClient->createView(),
+            'modificationMDPForm' => $formPassword->createView(),
         ]);
     }
 

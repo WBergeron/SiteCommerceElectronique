@@ -74,7 +74,20 @@ class ModificationClientFormType extends AbstractType
                 'label' => "Sauvegarder",
                 'row_attr' => ['class' => 'form-button'],
                 'attr' => ['class' => 'btnCreate btn-primary']
-            ]);;
+            ]);
+
+        // Modifier le input pour qu'il soit ok pour entrer en base de données
+        $builder->get('telephone')->addModelTransformer(new CallbackTransformer(
+            function ($phoneFromDataBase) {
+                //To View
+                $newPhone = substr_replace($phoneFromDataBase, "-", 3, 0);
+                return substr_replace($newPhone, "-", 7, 0);
+            },
+            function ($phoneFromView) {
+                // To Database
+                return str_replace("-", "", $phoneFromView);
+            }
+        ));
     }
 
     public function configureOptions(OptionsResolver $resolver): void
