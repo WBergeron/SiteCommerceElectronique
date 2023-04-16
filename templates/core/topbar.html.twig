@@ -7,10 +7,19 @@
 			</a>
 		</div>
 		<div class="col-lg-8 col-6 text-right">
-			<a href="{{ path("app_connection") }}" class="connecterTopBar">
-				<img src="/img/user.png" width="40px" height="40px" alt="user" class="rounded-circle">
-				<span class="text-dark ml-2">Se Connecter</span>
-			</a>
+			{% if app.user == null %}
+				<a href="{{ path("app_connection") }}" class="connecterTopBar">
+					<img src="/img/user.png" width="40px" height="40px" alt="user" class="rounded-circle">
+					<span class="text-dark ml-2">Se Connecter</span>
+				</a>
+			{% else %}
+				<a href="{{ path("app_deconnection") }}" class="connecterTopBar">
+					<img src="https://ui-avatars.com/api/?name={{ app.user.prenom }}+{{ app.user.nom }}&rounded=true&background=random" width=" 40px" height=" 40px" alt=" user">
+					<i class="text-dark ml-2">Bonjour
+						{{ app.user.prenom }}</i>
+					<span class="text-dark ml-2">Se Déconnecter</span>
+				</a>
+			{% endif %}
 		</div>
 	</div>
 </div>

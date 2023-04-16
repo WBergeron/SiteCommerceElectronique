@@ -54,6 +54,19 @@
 				</div>
 			</div>
 		</div>
+		<h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
+			<span class="bg-secondary pr-3">Modification Du Mot de passe</span>
+		</h2>
+		<div class="row px-xl-5 justify-content-center">
+			<div class="col-lg-9 mb-5">
+				<div class="bg-light p-30">
+					{% for flash in app.flashes('register')%}
+						<div class="alert my-3 {{ flash.color }}">{{ flash.content }}</div>
+					{% endfor %}
+
+				</div>
+			</div>
+		</div>
 	</div>
 	{% include 'core/footer.html.twig' %}
 {% endblock %}
