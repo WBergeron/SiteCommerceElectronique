@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Core\Notification;
 use App\Core\NotificationColor;
 use App\Form\ModificationClientFormType;
+use Symfony\Bundle\SecurityBundle\Security;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,8 +16,11 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class ProfileController extends AbstractController
 {
     #[Route('/profile', name: 'app_profile')]
-    public function index(Request $request): Response
-    {
+    public function index(
+        Request $request,
+        Security $security,
+        EntityManagerInterface $entityManager
+    ): Response {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         $clientActuel = $this->getUser();
@@ -23,6 +28,13 @@ class ProfileController extends AbstractController
         // Doit faire la manip d'attribuer les valeur du Form
         $form = $this->createForm(ModificationClientFormType::class, $clientActuel);
         $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($clientActuel);
+            $entityManager->flush();
+
+            $security->login($clientActuel);
+        }
 
         return $this->render('profile/profile.html.twig', [
             'clientActuel' => $clientActuel,

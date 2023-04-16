@@ -1,4 +1,6 @@
 {% extends 'core/base.html.twig' %}
+{% form_theme modificationForm 'bootstrap_5_layout.html.twig' %}
+
 {% block body %}
 	{% include 'core/topbar.html.twig' %}
 	{% include 'core/navbar.html.twig' %}
@@ -13,9 +15,9 @@
 					{% for flash in app.flashes('register')%}
 						<div class="alert my-3 {{ flash.color }}">{{ flash.content }}</div>
 					{% endfor %}
-					<div class="row">
+					<div class="row m-1">
 						<label>Courriel</label>
-						<input value="{{ clientActuel.courriel }}" disabled>
+						<input class="form-control" value="{{ clientActuel.courriel }}" disabled>
 					</div>
 					{{ form_start(modificationForm, {'attr': {'class': 'needs-validation-register', 'novalidate': 'novalidate' }}) }}
 					<div class="row">
