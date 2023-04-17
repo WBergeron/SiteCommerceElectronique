@@ -10917,3 +10917,38 @@ h6 {
   border-radius: 4px;
 
 }
+
+.connecterTopBar a {
+  text-decoration: none;
+
+}
+
+.client-form-title {
+  text-align: center;
+  font-size: xx-large;
+  font-weight: 500;
+  color: #85DCFF;
+}
+
+.client-form-divider {
+  width: 1px;
+  height: 240px;
+  margin: 0px 50px;
+  position: relative;
+  z-index: 1;
+}
+
+.client-form-button {
+  text-align: center;
+  width: 100%;
+}
+
+.form_select {
+  height: 38px;
+  width: 100%;
+  font-size: 15px;
+  padding: 0px 16px;
+  letter-spacing: 0.3px;
+  background-size: 12px 10px;
+  text-transform: capitalize;
+}
