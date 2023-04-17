@@ -1,0 +1,89 @@
+{% extends 'core/base.html.twig' %}
+{% form_theme modificationClientForm 'bootstrap_5_layout.html.twig' %}
+{% form_theme modificationMDPForm 'bootstrap_5_layout.html.twig' %}
+
+{% block body %}
+	{% include 'core/topbar.html.twig' %}
+	{% include 'core/navbar.html.twig' %}
+
+	<div class="container-fluid">
+		<h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
+			<span class="bg-secondary pr-3">Votre Profil</span>
+		</h2>
+		<div class="row px-xl-5 justify-content-center">
+			<div class="col-lg-9 mb-5">
+				{% if notification %}
+					<div class="alert {{ notification.color }}">{{ notification.content }}</div>
+				{% endif %}
+				<div class="bg-light p-30">
+					<div class="row m-1">
+						<label>Courriel</label>
+						<input class="form-control" value="{{ clientActuel.courriel }}" disabled>
+					</div>
+					{{ form_start(modificationClientForm, {'attr': {'class': 'needs-validation-register', 'novalidate': 'novalidate' }}) }}
+					<div class="row">
+						<div class="col-6">
+							{{ form_row(modificationClientForm.nom) }}
+						</div>
+						<div class="col-6">
+							{{ form_row(modificationClientForm.prenom) }}
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-8">
+							{{ form_row(modificationClientForm.adresse) }}
+						</div>
+						<div class="col-4">
+							{{ form_row(modificationClientForm.ville) }}
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-4">
+							{{ form_row(modificationClientForm.codePostal, {'attr': {'class': 'txtCodePostal'}}) }}
+						</div>
+						<div class="col-4">
+							{{ form_row(modificationClientForm.province, {'attr': {'class': 'form_select'}})}}
+						</div>
+						<div class="col-4">
+							{{ form_row(modificationClientForm.telephone, {'attr': {'class': 'txtTelephone'}}) }}
+						</div>
+					</div>
+					<div class="d-flex justify-content-center">
+						{{ form_row(modificationClientForm.modifier) }}
+					</div>
+					{{ form_end(modificationClientForm) }}
+				</div>
+			</div>
+		</div>
+		<h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
+			<span class="bg-secondary pr-3">Modification Du Mot de passe</span>
+		</h2>
+		<div class="row px-xl-5 justify-content-center">
+			<div class="col-lg-9 mb-5">
+				<div class="bg-light p-30">
+					{{ form_start(modificationMDPForm, {'attr': {'class': 'needs-validation-register', 'novalidate': 'novalidate' }}) }}
+					<div class="row">
+						<div class="col-12">
+							{{ form_row(modificationMDPForm.passwordActuel) }}
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12">
+							{{ form_row(modificationMDPForm.passwordModif.first) }}
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12">
+							{{ form_row(modificationMDPForm.passwordModif.second) }}
+						</div>
+					</div>
+					<div class="d-flex justify-content-center">
+						{{ form_row(modificationMDPForm.modifier) }}
+					</div>
+					{{ form_end(modificationMDPForm) }}
+				</div>
+			</div>
+		</div>
+	</div>
+	{% include 'core/footer.html.twig' %}
+{% endblock %}

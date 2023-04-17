@@ -43,13 +43,7 @@ class Produit
         return $this->name;
     }
 
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-        return $this;
-    }
-
-    public function getIdCategorie(): ?Categorie
+    public function getCategorie(): ?Categorie
     {
         return $this->categorie;
     }
@@ -59,42 +53,20 @@ class Produit
         return $this->price;
     }
 
-    public function setPrice(float $price): self
-    {
-        $this->price = $price;
-        return $this;
-    }
 
     public function getQuantityInStock(): ?float
     {
         return $this->quantityInStock;
     }
 
-    public function setQuantityInStock(float $quantityInStock): self
-    {
-        $this->price = $quantityInStock;
-        return $this;
-    }
 
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function setDescription(string $description): self
-    {
-        $this->description = $description;
-        return $this;
-    }
-
     public function getImagePath(): ?string
     {
         return $this->imagePath;
-    }
-
-    public function setImagePath(string $imagePath): self
-    {
-        $this->description = $imagePath;
-        return $this;
     }
 }

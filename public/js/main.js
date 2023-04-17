@@ -100,12 +100,6 @@
         button.parent().parent().find('input').val(newVal);
     });
 
-    // Checkbox du filtre catégorie
-    //$('.checkBoxCategorie').on('click', () => {
-    // TODO:
-    //});
-
-
 
 
 

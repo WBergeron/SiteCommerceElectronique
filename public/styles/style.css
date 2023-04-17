@@ -215,6 +215,7 @@ svg {
   vertical-align: middle;
 }
 
+/*Voir si sa enlève l'espacement*/
 table {
   border-collapse: collapse;
 }
@@ -10904,4 +10905,50 @@ h6 {
   position: sticky;
   top: 0px;
   z-index: 100;
+}
+
+.panierTable {
+  padding: 0px !important;
+  margin: 0px !important;
+}
+
+.notification {
+  background-color: white;
+  border-radius: 4px;
+
+}
+
+.connecterTopBar a {
+  text-decoration: none;
+
+}
+
+.client-form-title {
+  text-align: center;
+  font-size: xx-large;
+  font-weight: 500;
+  color: #85DCFF;
+}
+
+.client-form-divider {
+  width: 1px;
+  height: 240px;
+  margin: 0px 50px;
+  position: relative;
+  z-index: 1;
+}
+
+.client-form-button {
+  text-align: center;
+  width: 100%;
+}
+
+.form_select {
+  height: 38px;
+  width: 100%;
+  font-size: 15px;
+  padding: 0px 16px;
+  letter-spacing: 0.3px;
+  background-size: 12px 10px;
+  text-transform: capitalize;
 }

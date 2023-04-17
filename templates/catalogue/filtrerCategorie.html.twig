@@ -8,7 +8,9 @@
 				<input type="checkbox" class="custom-control-input" id="categorie_all" checked>
 				<div class="custom-control-label checkBoxCategorie" for="categorie_all" href="{{ path('app_catalogue') }}">Toutes les catégories</div>
 			</a>
-			<span class="badge border font-weight-normal">1000</span>
+			<span class="badge border font-weight-normal">
+				{{produits | length}}
+			</span>
 		</div>
 
 		{% for categorie in categories %}
@@ -17,7 +19,13 @@
 					<input type="checkbox" class="custom-control-input" id="categorie_{{categorie.idCategorie}}">
 					<div class="custom-control-label checkBoxCategorie" for="categorie_{{categorie.idCategorie}}">{{categorie.categorie}}</div>
 				</a>
-				<span class="badge border font-weight-normal">150</span>
+				{% set count = 0 %}
+				{% for produit in produits %}
+					{% if produit.categorie.idCategorie == categorie.idCategorie %}
+						{% set count = count + 1 %}
+					{% endif %}
+				{% endfor %}
+				<span class="badge border font-weight-normal">{{count}}</span>
 			</div>
 		{% endfor %}
 	</form>
