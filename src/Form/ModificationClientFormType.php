@@ -88,6 +88,18 @@ class ModificationClientFormType extends AbstractType
                 return str_replace("-", "", $phoneFromView);
             }
         ));
+
+        // Modifier le input pour qu'il soit ok pour entrer en base de données
+        $builder->get('codePostal')->addModelTransformer(new CallbackTransformer(
+            function ($codePostalFromDataBase) {
+                //To View
+                return substr_replace($codePostalFromDataBase, "-", 3, 0);
+            },
+            function ($codePostalFromView) {
+                // To Database
+                return str_replace("-", "", $codePostalFromView);
+            }
+        ));
     }
 
     public function configureOptions(OptionsResolver $resolver): void
