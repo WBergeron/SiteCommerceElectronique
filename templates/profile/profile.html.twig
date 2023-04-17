@@ -12,10 +12,10 @@
 		</h2>
 		<div class="row px-xl-5 justify-content-center">
 			<div class="col-lg-9 mb-5">
+				{% if notification %}
+					<div class="alert {{ notification.color }}">{{ notification.content }}</div>
+				{% endif %}
 				<div class="bg-light p-30">
-					{% for flash in app.flashes('register')%}
-						<div class="alert my-3 {{ flash.color }}">{{ flash.content }}</div>
-					{% endfor %}
 					<div class="row m-1">
 						<label>Courriel</label>
 						<input class="form-control" value="{{ clientActuel.courriel }}" disabled>
@@ -61,9 +61,6 @@
 		<div class="row px-xl-5 justify-content-center">
 			<div class="col-lg-9 mb-5">
 				<div class="bg-light p-30">
-					{% for flash in app.flashes('register')%}
-						<div class="alert my-3 {{ flash.color }}">{{ flash.content }}</div>
-					{% endfor %}
 					{{ form_start(modificationMDPForm, {'attr': {'class': 'needs-validation-register', 'novalidate': 'novalidate' }}) }}
 					<div class="row">
 						<div class="col-12">

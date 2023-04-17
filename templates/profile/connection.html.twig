@@ -11,13 +11,13 @@
 		</h2>
 		<div class="row px-xl-5 justify-content-center">
 			<div class="col-lg-8 mb-5">
+				{% if notification %}
+					<div class="alert {{ notification.color }}">{{ notification.content }}</div>
+				{% endif %}
 				<div class="bg-light p-30">
 					<div class="row justify-content-center">
 						<label class="col-12 mb-2 client-form-title">Bienvenue !</label>
 					</div>
-					{% if notification %}
-						<div class="alert {{ notification.color }}">{{ notification.content }}</div>
-					{% endif %}
 					<div class="row">
 						<div class="col-3">
 							<img src="/img/android-chrome-512x512.png" class="mx-auto d-block" alt="logo" width="300px" height="300px">

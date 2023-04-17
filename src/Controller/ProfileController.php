@@ -31,6 +31,7 @@ class ProfileController extends AbstractController
         /** @var \App\Entity\Client $clienActuel */
         $clientActuel = $this->getUser();
         $clientActuel = (object)$clientActuel;
+        $notification = null;
 
         /// Form de modification des infos du Client
         // Doit faire la manip d'attribuer les valeur du Form
@@ -42,6 +43,8 @@ class ProfileController extends AbstractController
             $entityManager->flush();
 
             $security->login($clientActuel);
+            $message = "Votre compte à bien été modifié";
+            $notification = new Notification('success', $message, NotificationColor::SUCCESS);
         }
 
         /// Form de modification du MTD du Client
@@ -71,7 +74,8 @@ class ProfileController extends AbstractController
 
                 $security->login($clientActuel);
 
-                return $this->redirectToRoute('app_profile');
+                $message = "Votre Mot de passe à bien été modifié";
+                $notification = new Notification('success', $message, NotificationColor::SUCCESS);
             }
         }
 
@@ -79,6 +83,7 @@ class ProfileController extends AbstractController
             'clientActuel' => $clientActuel,
             'modificationClientForm' => $formClient->createView(),
             'modificationMDPForm' => $formPassword->createView(),
+            'notification' => $notification
         ]);
     }
 

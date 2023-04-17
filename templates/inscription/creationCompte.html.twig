@@ -12,9 +12,6 @@
 		</h2>
 		<div class="row px-xl-5">
 			<div class="col-lg-8 mx-auto bg-light p-30">
-				{% for flash in app.flashes('register')%}
-					<div class="alert my-3 {{ flash.color }}">{{ flash.content }}</div>
-				{% endfor %}
 				{{ form_start(inscriptionForm, {'attr': {'class': 'needs-validation-register', 'novalidate': 'novalidate' }}) }}
 				<div class="row">
 					<div class="col-12">
