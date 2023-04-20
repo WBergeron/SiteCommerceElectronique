@@ -7,40 +7,33 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CommandeRepository::class)]
-#[ORM\Table(
-    name: 'commande'
-
-
-
-
-
-
-)]
+#[ORM\Table(name: 'commande')]
 class Commande
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
+    #[ORM\Column(name: 'idCommande')]
     private ?int $idCommande = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, name: 'dateCommande')]
     private ?\DateTimeInterface $dateCommande = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, name: 'dateLivraison')]
     private ?\DateTimeInterface $dateLivraison = null;
 
-    #[ORM\Column]
+    #[ORM\Column(name: 'tauxTPS')]
     private ?float $tauxTPS = null;
 
-    #[ORM\Column]
+    #[ORM\Column(name: 'tauxTVQ')]
     private ?float $tauxTVQ = null;
 
-    #[ORM\Column]
+    #[ORM\Column(name: 'fraisLivraison')]
     private ?float $fraisLivraison = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, name: 'etat')]
     private ?string $etat = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, name: 'stripeIntent')]
     private ?string $stripeIntent = null;
 
 

@@ -8,6 +8,8 @@ class Achat
     private $quantite;
     private $prixAchat;
 
+
+
     public function __construct($produit, $quantite, $prixAchat)
     {
         $this->produit = $produit;
