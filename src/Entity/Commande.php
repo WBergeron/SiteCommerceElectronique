@@ -18,7 +18,7 @@ class Commande
     #[ORM\Column(type: Types::DATETIME_MUTABLE, name: 'dateCommande')]
     private ?\DateTimeInterface $dateCommande = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, name: 'dateLivraison')]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, name: 'dateLivraison', nullable: true)]
     private ?\DateTimeInterface $dateLivraison = null;
 
     #[ORM\Column(name: 'tauxTPS')]
@@ -35,6 +35,14 @@ class Commande
 
     #[ORM\Column(length: 255, name: 'stripeIntent')]
     private ?string $stripeIntent = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(name: 'idClient', referencedColumnName: 'idClient', nullable: false)]
+    private ?Client $client = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(name: 'idAchat', referencedColumnName: 'idAchat', nullable: false)]
+    private ?Achat $achat = null;
 
 
     public function getIdCommande(): ?int
