@@ -6,7 +6,7 @@
 				<span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Shop</span>
 			</a>
 		</div>
-		<div class="col-lg-6 col-6 text-left">
+		<div class="col-lg-5 col-5 text-left">
 			<form class="d-flex nav-item m-auto" method="POST" action="{{ app.request.uri }}">
 				<div class="input-group">
 					<div class="input-group-append">
@@ -20,7 +20,7 @@
 				</div>
 			</form>
 		</div>
-		<div class="col-lg-2 col-6 text-right">
+		<div class="col-lg-3 col-6 text-right">
 			{% if app.user == null %}
 				<a href="{{ path("app_connection") }}" class="connecterTopBar">
 					<img src="/img/user.png" width="40px" height="40px" alt="user" class="rounded-circle">

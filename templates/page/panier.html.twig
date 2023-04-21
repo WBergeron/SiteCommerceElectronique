@@ -130,6 +130,8 @@
 			<h5>{{ listAchat.getTotal | round(2, 'floor') }}
 				$</h5>
 		</div>
-		<button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Commander</button>
+		<a class="btn btn-block btn-primary font-weight-bold my-3 py-3" href="{{ path('app_commande') }}">
+			Commander
+		</a>
 	</div>
 </div></div></div></div>{% include 'core/footer.html.twig' %}{% endblock %}
