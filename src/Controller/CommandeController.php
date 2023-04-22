@@ -41,6 +41,33 @@ class CommandeController extends AbstractController
         ]);
     }
 
+    #[Route('/stripe', name: 'app_stripe_payement')]
+    public function stripePayement(): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $client = $this->getUser();
+
+        \Stripe\Stripe::setApiKey($_ENV["STRIPE_SECRET"]);
+
+        $successURL = $this->generateUrl('stripe_success', [], UrlGeneratorInterface::ABSOLUTE_URL) . "?stripe_id={CHECKOUT_SESSION_ID}";
+
+        $sessionData = [
+            'line_items' => [[
+                'quantity' => 1,
+                'price_data' => ['unit_amount' => $this->panier->getTotal(), 'currency' => 'CAD', 'product_data' => []],
+            ]],
+            'customer_email' => $client->getCourriel(),
+            'payment_method_types' => ['card'],
+            'mode' => 'payment',
+            'success_url' => $successURL,
+            'cancel_url' => $this->generateUrl('stripe_cancel', [], UrlGeneratorInterface::ABSOLUTE_URL)
+        ];
+
+        $checkoutSession = \Stripe\Checkout\Session::create($sessionData);
+        return $this->redirect($checkoutSession->url, 303);
+    }
+
     private function initSession(Request $request)
     {
         $session = $request->getSession();
