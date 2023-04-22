@@ -28,8 +28,9 @@ class CommandeController extends AbstractController
         // Revue
         // Vérification d'acces
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->initSession($request);
         $session = $request->getSession();
-        if (!$session) {
+        if ($session->get('data')) {
             return $this->redirectToRoute('app_connection');
         }
 
