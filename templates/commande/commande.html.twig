@@ -34,30 +34,28 @@
 							</tr>
 						</thead>
 						<tbody class="align-middle">
-							{% if (listAchat.panier | length) != 0 %}
-								{% for key, achat in listAchat.panier %}
-									<td class="align-middle">
-										<img src="{{asset_if(achat.produit.imagePath, 'img/non-disponible.jpg')}}" alt="" style="width: 100px;"></td>
-								</td>
+							{% for key, achat in listAchat.panier %}
 								<td class="align-middle">
-									{% if (achat.produit.name | length) <= 30%}
-										{{ achat.produit.name }}
-									{% else %}
-										{{ achat.produit.name | u.truncate(30, '...') }}
-									{% endif %}
-								</td>
-								<td class="align-middle">{{achat.prixAchat}}
-									$</td>
-								<td class="align-middle">
-									<div class="input-group quantity mx-auto" style="width: 100px;">
-										<p class="form-control form-control-sm border-0 text-center">{{achat.quantite}}</p>
-									</div>
-								</td>
-								<td class="align-middle">{{achat.prixAchat * achat.quantite}}
-									$</td>
-							{% endfor %}
-						{% endif %}
-					</tbody>
+									<img src="{{asset_if(achat.produit.imagePath, 'img/non-disponible.jpg')}}" alt="" style="width: 100px;"></td>
+							</td>
+							<td class="align-middle">
+								{% if (achat.produit.name | length) <= 30%}
+									{{ achat.produit.name }}
+								{% else %}
+									{{ achat.produit.name | u.truncate(30, '...') }}
+								{% endif %}
+							</td>
+							<td class="align-middle">{{achat.prixAchat}}
+								$</td>
+							<td class="align-middle">
+								<div class="input-group quantity mx-auto" style="width: 100px;">
+									<p class="form-control form-control-sm border-0 text-center">{{achat.quantite}}</p>
+								</div>
+							</td>
+							<td class="align-middle">{{achat.prixAchat * achat.quantite}}
+								$</td>
+						</tbody>
+					{% endfor %}
 				</table>
 			</div>
 		</div>

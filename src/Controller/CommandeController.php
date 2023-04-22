@@ -7,10 +7,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
+use PHPUnit\Framework\Constraint\Count;
 use Symfony\Component\HttpFoundation\Request;
 
 use Stripe;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Validator\Constraints\Length;
 
 class CommandeController extends AbstractController
 {
@@ -30,8 +32,8 @@ class CommandeController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $this->initSession($request);
         $session = $request->getSession();
-        if ($session->get('data')) {
-            return $this->redirectToRoute('app_connection');
+        if (sizeOf($session->get('panier')->getPanier()) <= 0) {
+            return $this->redirectToRoute('app_panier');
         }
 
         return $this->render('commande/commande.html.twig', [
