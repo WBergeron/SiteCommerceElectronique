@@ -40,10 +40,9 @@ class Commande
     #[ORM\JoinColumn(name: 'idClient', referencedColumnName: 'idClient', nullable: false)]
     private ?Client $client = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\OneToMany(targetEntity: Achat::class, cascade: ["persist"])]
     #[ORM\JoinColumn(name: 'idAchat', referencedColumnName: 'idAchat', nullable: false)]
     private ?Achat $achat = null;
-
 
     public function getIdCommande(): ?int
     {

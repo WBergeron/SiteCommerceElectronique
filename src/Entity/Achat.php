@@ -15,7 +15,7 @@ class Achat
     #[ORM\Column(name: 'idAchat')]
     private ?int $idAchat = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(targetEntity: Produit::class, cascade: ["persist"])]
     #[ORM\JoinColumn(name: 'produit', referencedColumnName: 'idProduit', nullable: false)]
     private ?Produit $produit = null;
 
