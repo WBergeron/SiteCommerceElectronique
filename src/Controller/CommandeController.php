@@ -68,6 +68,8 @@ class CommandeController extends AbstractController
         return $this->redirect($checkoutSession->url, 303);
     }
 
+
+
     private function initSession(Request $request)
     {
         $session = $request->getSession();

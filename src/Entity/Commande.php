@@ -133,4 +133,28 @@ class Commande
 
         return $this;
     }
+
+    public function getClient(): ?Client
+    {
+        return $this->client;
+    }
+
+    public function setClient(?Client $client): self
+    {
+        $this->client = $client;
+
+        return $this;
+    }
+
+    public function getAchat(): ?Achat
+    {
+        return $this->achat;
+    }
+
+    public function setAchat(?Achat $achat): self
+    {
+        $this->achat = $achat;
+
+        return $this;
+    }
 }
