@@ -34,7 +34,7 @@
 							</tr>
 						</thead>
 						<tbody class="align-middle">
-							{% for key, achat in listAchat.panier %}
+							{% for achat in listAchat.panier %}
 								<td class="align-middle">
 									<img src="{{asset_if(achat.produit.imagePath, 'img/non-disponible.jpg')}}" alt="" style="width: 100px;"></td>
 							</td>

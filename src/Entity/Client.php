@@ -225,7 +225,15 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function addInventaire(Commande $inventaire): Collection
+    /**
+     * @return Collection<int, Commande>
+     */
+    public function getInventaire(): Collection
+    {
+        return $this->inventaire;
+    }
+
+    public function addInventaire(Commande $inventaire): self
     {
         if (!$this->inventaire->contains($inventaire)) {
             $this->inventaire->add($inventaire);
@@ -244,13 +252,5 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
-    }
-
-    /**
-     * @return Collection<int, Commande>
-     */
-    public function getInventaire(): Collection
-    {
-        return $this->inventaire;
     }
 }

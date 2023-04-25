@@ -72,17 +72,12 @@ class CommandeController extends AbstractController
     #[Route('/stripe-success', name: 'stripe-success')]
     public function stripeSuccess(Request $request): Response
     {
-        // Nous avons un payement
-
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-
         // Dans le TP
         // Créer une commande
         // Transformé le panier en commande
         // MaJ des quantité des produit 
         // Vider le panier
-
-        $newCommande = new Commande();
 
         $user = $this->getUser();
 
@@ -94,15 +89,15 @@ class CommandeController extends AbstractController
             $sessionStripe = $stripe->checkout->sessions->retrieve($stripeSessionId);
             $stripeIntent = $sessionStripe->payment_intent;
 
-            // stripeIntent sera a sauvegardé en BD  
-
-            foreach ($user->getInventories() as $item) {
-                $item->addItem();
+            foreach ($this->panier as $achat) {
                 // !!! DANS LE TP ICI !!! :
                 // Il faudra appeler la méthode merge de l'entité manager sur chaque achat
             }
-            $this->em->persist($user);
-            $this->em->flush();
+
+            $newCommande = new Commande($stripeIntent);
+            var_dump($newCommande);
+            // $this->em->persist($newCommande);
+            // $this->em->flush();
         } catch (\Exception $e) {
             return $this->redirectToRoute('app_panier');
         }

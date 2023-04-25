@@ -15,15 +15,19 @@ class Achat
     #[ORM\Column(name: 'idAchat')]
     private ?int $idAchat = null;
 
-    #[ORM\ManyToOne(targetEntity: Produit::class, cascade: ["persist"])]
-    #[ORM\JoinColumn(name: 'produit', referencedColumnName: 'idProduit', nullable: false)]
-    private ?Produit $produit = null;
-
     #[ORM\Column(name: 'quantite', nullable: false)]
     private ?int $quantite = null;
 
     #[ORM\Column(name: 'prixAchat', nullable: false)]
     private ?float $prixAchat = null;
+
+    #[ORM\ManyToOne(targetEntity: Produit::class, cascade: ["persist"])]
+    #[ORM\JoinColumn(name: 'idProduit', referencedColumnName: 'idProduit', nullable: false)]
+    private ?Produit $produit = null;
+
+    #[ORM\ManyToOne(targetEntity: Commande::class, inversedBy: 'achat')]
+    #[ORM\JoinColumn(name: 'idCommande', referencedColumnName: 'idCommande', nullable: false)]
+    private ?Commande $commande = null;
 
     public function __construct($produit, $quantite, $prixAchat)
     {
@@ -47,11 +51,6 @@ class Achat
         return $this->idAchat;
     }
 
-    public function getProduit(): Produit
-    {
-        return $this->produit;
-    }
-
     public function getQuantite(): ?int
     {
         return $this->quantite;
@@ -60,5 +59,22 @@ class Achat
     public function getPrixAchat(): ?float
     {
         return $this->prixAchat;
+    }
+
+    public function getProduit(): Produit
+    {
+        return $this->produit;
+    }
+
+    public function getCommande(): Commande
+    {
+        return $this->commande;
+    }
+
+    public function setCommande(?Commande $commande): self
+    {
+        $this->commande = $commande;
+
+        return $this;
     }
 }

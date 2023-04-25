@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CommandeRepository;
+use Doctrine\Common\Collections\Collection;
+use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -15,7 +17,7 @@ class Commande
     #[ORM\Column(name: 'idCommande')]
     private ?int $idCommande = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, name: 'dateCommande')]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, name: 'dateCommande', nullable: false)]
     private ?\DateTimeInterface $dateCommande = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, name: 'dateLivraison', nullable: true)]
@@ -40,9 +42,22 @@ class Commande
     #[ORM\JoinColumn(name: 'idClient', referencedColumnName: 'idClient', nullable: false)]
     private ?Client $client = null;
 
-    #[ORM\OneToMany(targetEntity: Achat::class, cascade: ["persist"])]
-    #[ORM\JoinColumn(name: 'idAchat', referencedColumnName: 'idAchat', nullable: false)]
-    private ?Achat $achat = null;
+    #[ORM\OneToMany(mappedBy: 'commande', targetEntity: Achat::class, orphanRemoval: true, cascade: ["persist"])]
+    #[ORM\JoinColumn(name: 'idAchat', nullable: false)]
+    private Collection $achat;
+
+    public function __construct(string $StripeIntent)
+    {
+        // Devrais être set avec le datetime d'origine de Londre
+        // et peut-être set le format en base de données
+        $this->dateCommande = new DateTime();
+        $this->dateLivraison = null;
+        $this->tauxTPS = Constantes::$TPS;
+        $this->tauxTVQ = Constantes::$TVQ;
+        $this->fraisLivraison = Constantes::$FRAIS_LIVRAISON;
+        $this->etat = "preparation";
+        $this->stripeIntent = $StripeIntent;
+    }
 
     public function getIdCommande(): ?int
     {
@@ -54,23 +69,9 @@ class Commande
         return $this->dateCommande;
     }
 
-    public function setDateCommande(\DateTimeInterface $dateCommande): self
-    {
-        $this->dateCommande = $dateCommande;
-
-        return $this;
-    }
-
     public function getDateLivraison(): ?\DateTimeInterface
     {
         return $this->dateLivraison;
-    }
-
-    public function setDateLivraison(\DateTimeInterface $dateLivraison): self
-    {
-        $this->dateLivraison = $dateLivraison;
-
-        return $this;
     }
 
     public function getTauxTPS(): ?float
@@ -78,23 +79,9 @@ class Commande
         return $this->tauxTPS;
     }
 
-    public function setTauxTPS(float $tauxTPS): self
-    {
-        $this->tauxTPS = $tauxTPS;
-
-        return $this;
-    }
-
     public function getTauxTVQ(): ?float
     {
         return $this->tauxTVQ;
-    }
-
-    public function setTauxTVQ(float $tauxTVQ): self
-    {
-        $this->tauxTVQ = $tauxTVQ;
-
-        return $this;
     }
 
     public function getFraisLivraison(): ?float
@@ -102,23 +89,9 @@ class Commande
         return $this->fraisLivraison;
     }
 
-    public function setFraisLivraison(float $fraisLivraison): self
-    {
-        $this->fraisLivraison = $fraisLivraison;
-
-        return $this;
-    }
-
     public function getEtat(): ?string
     {
         return $this->etat;
-    }
-
-    public function setEtat(string $etat): self
-    {
-        $this->etat = $etat;
-
-        return $this;
     }
 
     public function getStripeIntent(): ?string
@@ -145,14 +118,29 @@ class Commande
         return $this;
     }
 
-    public function getAchat(): ?Achat
+    public function getAchat(): Collection
     {
         return $this->achat;
     }
 
-    public function setAchat(?Achat $achat): self
+    public function addAchat(Achat $achat): self
     {
-        $this->achat = $achat;
+        if (!$this->achat->contains($achat)) {
+            $this->achat->add($achat);
+            $achat->setCommande($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAchat(Achat $achat): self
+    {
+        if ($this->achat->removeElement($achat)) {
+            // set the owning side to null (unless already changed)
+            if ($achat->getCommande() === $this) {
+                $achat->setCommande(null);
+            }
+        }
 
         return $this;
     }
