@@ -91,7 +91,7 @@ class CommandeController extends AbstractController
             $message = "";
 
             foreach ($this->panier as $achat) {
-                // Merge
+                // TODO: Le merge se fait mal...
                 $produit = $this->em->merge($achat->getProduit());
                 // Enlever la quantité dans le produit avec une méthode sold dans produit
                 if ($produit->vendu($achat->getQuantite())) {

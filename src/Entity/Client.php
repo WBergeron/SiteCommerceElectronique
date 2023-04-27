@@ -63,7 +63,7 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private array $roles = [];
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Commande::class, orphanRemoval: true, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Commande::class, orphanRemoval: true, cascade: ['persist'])]
     private Collection $inventaire;
 
     public function __construct()

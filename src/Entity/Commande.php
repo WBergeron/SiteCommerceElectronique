@@ -39,7 +39,7 @@ class Commande
     #[ORM\Column(length: 255, name: 'stripeIntent')]
     private ?string $stripeIntent = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(inversedBy: 'inventaire')]
     #[ORM\JoinColumn(name: 'idClient', referencedColumnName: 'idClient', nullable: false)]
     private ?Client $client = null;
 
