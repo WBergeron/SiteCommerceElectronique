@@ -18,7 +18,7 @@ class Categorie
     #[ORM\Column(length: 64)]
     private ?string $categorie = null;
 
-    #[ORM\OnetoMany(targetEntity: Produit::class, mappedBy: "categorie", fetch: "LAZY")]
+    #[ORM\OneToMany(targetEntity: Produit::class, mappedBy: "categorie")]
     private $produits;
 
     public function getIdCategorie(): ?int

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CommandeRepository;
 use Doctrine\Common\Collections\Collection;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -46,7 +47,7 @@ class Commande
     #[ORM\JoinColumn(name: 'idAchat', nullable: false)]
     private Collection $achat;
 
-    public function __construct(string $StripeIntent)
+    public function __construct(Client $client, Panier $panier, string $StripeIntent)
     {
         // Devrais être set avec le datetime d'origine de Londre
         // et peut-être set le format en base de données
@@ -57,6 +58,14 @@ class Commande
         $this->fraisLivraison = Constantes::$FRAIS_LIVRAISON;
         $this->etat = "preparation";
         $this->stripeIntent = $StripeIntent;
+        $this->client = $client;
+
+        $this->achat = new ArrayCollection();
+
+        foreach ($panier->getPanier() as $achat) {
+            $this->achat->add($achat);
+            $achat->setCommande($this);
+        }
     }
 
     public function getIdCommande(): ?int

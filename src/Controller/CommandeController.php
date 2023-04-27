@@ -2,13 +2,14 @@
 
 namespace App\Controller;
 
+use App\Core\Notification;
+use App\Core\NotificationColor;
 use App\Entity\Commande;
 use App\Entity\Panier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\Persistence\ManagerRegistry;
-use PHPUnit\Framework\Constraint\Count;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 use Stripe;
@@ -20,9 +21,9 @@ class CommandeController extends AbstractController
     private $panier;
     private $em = null;
 
-    public function __construct(ManagerRegistry $doctrine)
+    public function __construct(EntityManagerInterface $em)
     {
-        $this->em = $doctrine->getManager();
+        $this->em = $em;
     }
 
     #[Route('/commande', name: 'app_commande')]
@@ -43,26 +44,27 @@ class CommandeController extends AbstractController
     }
 
     #[Route('/stripe', name: 'app_stripe_payement')]
-    public function stripePayement(): Response
+    public function stripePayement(Request $request): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         $client = $this->getUser();
+        $this->initSession($request);
 
         \Stripe\Stripe::setApiKey($_ENV["STRIPE_SECRET"]);
 
-        $successURL = $this->generateUrl('stripe_success', [], UrlGeneratorInterface::ABSOLUTE_URL) . "?stripe_id={CHECKOUT_SESSION_ID}";
+        $successURL = $this->generateUrl('stripe-success', [], UrlGeneratorInterface::ABSOLUTE_URL) . "?stripe_id={CHECKOUT_SESSION_ID}";
 
         $sessionData = [
             'line_items' => [[
                 'quantity' => 1,
-                'price_data' => ['unit_amount' => $this->panier->getTotal(), 'currency' => 'CAD', 'product_data' => []],
+                'price_data' => ['unit_amount' => $this->prixEnCenne(), 'currency' => 'CAD', 'product_data' => ['name' => 'KeyBoardShop_Achat']],
             ]],
             'customer_email' => $client->getCourriel(),
             'payment_method_types' => ['card'],
             'mode' => 'payment',
             'success_url' => $successURL,
-            'cancel_url' => $this->generateUrl('stripe_cancel', [], UrlGeneratorInterface::ABSOLUTE_URL)
+            'cancel_url' => $this->generateUrl('stripe-cancel', [], UrlGeneratorInterface::ABSOLUTE_URL)
         ];
 
         $checkoutSession = \Stripe\Checkout\Session::create($sessionData);
@@ -73,13 +75,8 @@ class CommandeController extends AbstractController
     public function stripeSuccess(Request $request): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        // Dans le TP
-        // Créer une commande
-        // Transformé le panier en commande
-        // MaJ des quantité des produit 
-        // Vider le panier
-
-        $user = $this->getUser();
+        $this->initSession($request);
+        $session = $request->getSession();
 
         // Vérifier que sa bien fonctionner 
         try {
@@ -89,16 +86,31 @@ class CommandeController extends AbstractController
             $sessionStripe = $stripe->checkout->sessions->retrieve($stripeSessionId);
             $stripeIntent = $sessionStripe->payment_intent;
 
-            foreach ($this->panier as $achat) {
-                // !!! DANS LE TP ICI !!! :
-                // Il faudra appeler la méthode merge de l'entité manager sur chaque achat
-            }
+            $newCommande = new Commande($this->getUser(), $this->panier, $stripeIntent);
 
-            $newCommande = new Commande($stripeIntent);
-            var_dump($newCommande);
-            // $this->em->persist($newCommande);
-            // $this->em->flush();
+            $message = "";
+
+            foreach ($this->panier as $achat) {
+                // Merge
+                $produit = $this->em->merge($achat->getProduit());
+                // Enlever la quantité dans le produit avec une méthode sold dans produit
+                if ($produit->vendu($achat->getQuantite())) {
+                    $message += "Le produit {$produit->getName()} n'est plus en stock.";
+                }
+                // Re-set le produit dans l'achat
+                $achat->setProduit($produit);
+            }
+            $this->em->persist($newCommande);
+            $this->em->flush();
+            // Vider le panier
+            $session->remove("panier");
+            // Notification
+            if ($message != "") {
+                $message += "Il se peut que votre commande prendre plus de temps à arriver.";
+            }
+            $this->addFlash('commande', new Notification('success', $message, NotificationColor::INFO));
         } catch (\Exception $e) {
+            // var_dump($e);
             return $this->redirectToRoute('app_panier');
         }
         return $this->redirectToRoute('app_profile');
@@ -107,7 +119,7 @@ class CommandeController extends AbstractController
     #[Route('/stripe-cancel', name: 'stripe-cancel')]
     public function stripeCancel(): Response
     {
-        return $this->redirectToRoute('app_profile');
+        return $this->redirectToRoute('app_panier');
     }
 
     private function initSession(Request $request)
@@ -118,5 +130,10 @@ class CommandeController extends AbstractController
 
         $this->panier = $session->get('panier', new Panier());
         $session->set('panier', $this->panier);
+    }
+
+    private function prixEnCenne()
+    {
+        return round($this->panier->getTotal(), 2) * 100;
     }
 }
