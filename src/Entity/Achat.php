@@ -25,7 +25,7 @@ class Achat
     #[ORM\JoinColumn(name: 'idProduit', referencedColumnName: 'idProduit', nullable: false)]
     private ?Produit $produit = null;
 
-    #[ORM\ManyToOne(targetEntity: Commande::class, inversedBy: 'achat')]
+    #[ORM\ManyToOne(targetEntity: Commande::class, inversedBy: 'achat', cascade: ["persist"])]
     #[ORM\JoinColumn(name: 'idCommande', referencedColumnName: 'idCommande', nullable: false)]
     private ?Commande $commande = null;
 
