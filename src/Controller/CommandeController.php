@@ -110,7 +110,6 @@ class CommandeController extends AbstractController
             }
             $this->addFlash('commande', new Notification('success', $message, NotificationColor::INFO));
         } catch (\Exception $e) {
-            // var_dump($e);
             return $this->redirectToRoute('app_panier');
         }
         return $this->redirectToRoute('app_profile');
