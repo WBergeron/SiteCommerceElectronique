@@ -43,6 +43,19 @@ class CommandeController extends AbstractController
         ]);
     }
 
+    #[Route('/commande/{idCommande}', name: 'app_appercucommande')]
+    public function commandeId($idCommande): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        // TODO: Doit faire la vérification si c'est bien au User connecter
+
+        $commande = $this->retrieveCommandeById($idCommande);
+
+
+
+        return $this->render('commande/apercuCommande.html.twig', []);
+    }
+
     #[Route('/stripe', name: 'app_stripe_payement')]
     public function stripePayement(Request $request): Response
     {
@@ -119,6 +132,11 @@ class CommandeController extends AbstractController
     public function stripeCancel(): Response
     {
         return $this->redirectToRoute('app_panier');
+    }
+
+    private function retrieveCommandeById($idCommande)
+    {
+        return $this->em->getRepository(Commande::class)->findByIdCommande($idCommande);
     }
 
     private function initSession(Request $request)

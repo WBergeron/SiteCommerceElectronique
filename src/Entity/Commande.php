@@ -56,7 +56,7 @@ class Commande
         $this->tauxTPS = Constantes::$TPS;
         $this->tauxTVQ = Constantes::$TVQ;
         $this->fraisLivraison = Constantes::$FRAIS_LIVRAISON;
-        $this->etat = "preparation";
+        $this->etat = "En Preparation";
         $this->stripeIntent = $StripeIntent;
         $this->client = $client;
 
@@ -152,5 +152,17 @@ class Commande
         }
 
         return $this;
+    }
+
+    public function getTotal()
+    {
+        $total = "0";
+        foreach ($this->achat as $item) {
+            $sommaire = ($item->getPrixAchat() * $item->getQuantite());
+            $tps = $sommaire * $this->tauxTPS;
+            $tvq = $sommaire * $this->tauxTVQ;
+            $total += $sommaire + $tps + $tvq + $this->fraisLivraison;
+        }
+        return $total;
     }
 }
