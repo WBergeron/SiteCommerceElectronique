@@ -7,37 +7,51 @@
 	<div class="container-fluid">
 		<h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4 d-flex justify-content-between">
 			<span class="bg-secondary pr-3">Commande #{{commande.idCommande}}</span>
-			<span class="bg-secondary pr-3">{{commande.etat}}</span>
+			<span class="bg-secondary pl-3">{{commande.etat}}</span>
 		</h2>
 		<div class="row px-xl-5 justify-content-center">
 			<div class="col-lg-9 mb-5">
 				<div class="bg-light p-30">
-					<div class="row">
+					<div class="row font-weight-bold">
 						<div class="col-5">
-							<p># Commande{{commande.idCommande}}</p>
-							<p>Nombre de produit{{commande.getNbItems()}}</p>
-							<p>Date de commande
-								{{commande.dateCommande | date("Y-m-d H:i:s")}}</p>
-							<p>Date de livraison
-								{{commande.getDateLivraisonAffichage()}}</p>
+							<p class="d-flex justify-content-between"># Commande
+								<span class="font-weight-normal">{{commande.idCommande}}</span>
+							</p>
+							<p class="d-flex justify-content-between">Nombre de produit
+								<span class="font-weight-normal">{{commande.getNbItems()}}
+									produits</span>
+							</p>
+							<p class="d-flex justify-content-between">Date de commande
+								<span class="font-weight-normal">{{commande.dateCommande | date("Y-m-d H:i:s")}}</span>
+							</p>
+							<p class="d-flex justify-content-between">Date de livraison
+								<span class="font-weight-normal">{{commande.getDateLivraisonAffichage()}}</span>
+							</p>
 						</div>
 						<div class="col-4">
-							<p>Sous-Total
-								{{commande.getSousTotal()}}
-								$</p>
-							<p>Rabais 0 $</p>
-							<p>Frais de livraison
-								{{commande.fraisLivraison}}
-								$</p>
-							<p>Total
-								{{commande.getTotal() | round(2, 'floor')}}</p>
+							<p class="d-flex justify-content-between">Sous-Total
+								<span class="font-weight-normal">{{commande.getSousTotal()}}
+									$</span>
+							</p>
+							<p class="d-flex justify-content-between">Rabais
+								<span class="font-weight-normal">0 $</span>
+							</p>
+							<p class="d-flex justify-content-between">Frais de livraison
+								<span class="font-weight-normal">{{commande.fraisLivraison}}
+									$</span>
+							</p>
+							<p class="d-flex justify-content-between">Total
+								<span class="font-weight-normal">{{commande.getTotal() | round(2, 'floor')}}
+									$</span>
+							</p>
 						</div>
 						<div class="col-3">
-							<p>Adresse de livraison:</p>
-							<p>{{commande.client.prenom}}
-								{{commande.client.nom}}</p>
-							<p>{{commande.client.adresse}}</p>
-							<p>{{commande.client.ville}}</p>
+							<p class="font-weight-bold">Adresse de livraison:</p>
+							<p class="font-weight-normal">
+								{{commande.client.prenom}}
+								{{commande.client.nom}}<br>
+								{{commande.client.adresse}}<br>
+								{{commande.client.ville}}</p>
 						</div>
 					</div>
 					<table class="table table-light table-borderless table-hover text-center mb-0">
@@ -56,16 +70,16 @@
 									<td class="align-middle">
 										<img src="{{asset_if(achat.produit.imagePath, 'img/non-disponible.jpg')}}" alt="" style="width: 100px;">
 									</td>
-									<td>
+									<td class="align-middle">
 										{{achat.produit.name}}
 									</td>
-									<td>
+									<td class="align-middle">
 										{{achat.produit.price | round(2, 'floor')}}
 									</td>
-									<td>
+									<td class="align-middle">
 										{{achat.quantite}}
 									</td>
-									<td>
+									<td class="align-middle">
 										{{achat.prixAchat * achat.quantite}}
 									</td>
 								</tr>
