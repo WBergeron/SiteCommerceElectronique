@@ -5,13 +5,74 @@
 	{% include 'core/navbar.html.twig' %}
 
 	<div class="container-fluid">
-		<h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
+		<h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4 d-flex justify-content-between">
 			<span class="bg-secondary pr-3">Commande #{{commande[0].idCommande}}</span>
 			<span class="bg-secondary pr-3">{{commande[0].etat}}</span>
 		</h2>
 		<div class="row px-xl-5 justify-content-center">
 			<div class="col-lg-9 mb-5">
-				<div class="bg-light p-30"></div>
+				<div class="bg-light p-30">
+					<div class="row">
+						<div class="col-5">
+							<p># Commande{{commande[0].idCommande}}</p>
+							<p>Nombre de produit{{commande[0].getNbItems()}}</p>
+							<p>Date de commande
+								{{commande[0].dateCommande | date("Y-m-d H:i:s")}}</p>
+							<p>Date de livraison
+								{{commande[0].getDateLivraisonAffichage()}}</p>
+						</div>
+						<div class="col-4">
+							<p>Sous-Total
+								{{commande[0].getSousTotal()}}
+								$</p>
+							<p>Rabais 0 $</p>
+							<p>Frais de livraison
+								{{commande[0].fraisLivraison}}
+								$</p>
+							<p>Total
+								{{commande[0].getTotal() | round(2, 'floor')}}</p>
+						</div>
+						<div class="col-3">
+							<p>Adresse de livraison:</p>
+							<p>{{commande[0].client.prenom}}
+								{{commande[0].client.nom}}</p>
+							<p>{{commande[0].client.adresse}}</p>
+							<p>{{commande[0].client.ville}}</p>
+						</div>
+					</div>
+					<table class="table table-light table-borderless table-hover text-center mb-0">
+						<thead class="thead-dark">
+							<tr>
+								<th>Produit</th>
+								<th>Nom</th>
+								<th>Prix Unitaire</th>
+								<th>Quantité</th>
+								<th>Total</th>
+							</tr>
+						</thead>
+						<tbody class="align-middle">
+							{% for achat in commande[0].achat %}
+								<tr>
+									<td class="align-middle">
+										<img src="{{asset_if(achat.produit.imagePath, 'img/non-disponible.jpg')}}" alt="" style="width: 100px;">
+									</td>
+									<td>
+										{{achat.produit.name}}
+									</td>
+									<td>
+										{{achat.produit.price | round(2, 'floor')}}
+									</td>
+									<td>
+										{{achat.quantite}}
+									</td>
+									<td>
+										{{achat.prixAchat * achat.quantite}}
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>

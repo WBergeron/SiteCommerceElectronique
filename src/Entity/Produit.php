@@ -70,7 +70,8 @@ class Produit
 
     public function vendu(int $quantiteVendu)
     {
-        $this->quantityInStock - $quantiteVendu;
+        $nouvelleQuantite = $this->quantityInStock - $quantiteVendu;
+        $this->quantityInStock = $nouvelleQuantite;
         if ($this->quantityInStock <= 0) {
             return true;
         } else {

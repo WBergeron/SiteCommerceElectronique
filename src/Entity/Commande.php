@@ -9,6 +9,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+use function PHPUnit\Framework\stringContains;
+
 #[ORM\Entity(repositoryClass: CommandeRepository::class)]
 #[ORM\Table(name: 'commande')]
 class Commande
@@ -154,9 +156,18 @@ class Commande
         return $this;
     }
 
+    public function getSousTotal()
+    {
+        $sousTotal = 0;
+        foreach ($this->achat as $item) {
+            $sousTotal += $item->getPrixAchat() * $item->getQuantite();
+        }
+        return $sousTotal;
+    }
+
     public function getTotal()
     {
-        $total = "0";
+        $total = 0;
         foreach ($this->achat as $item) {
             $sommaire = ($item->getPrixAchat() * $item->getQuantite());
             $tps = $sommaire * $this->tauxTPS;
@@ -164,5 +175,23 @@ class Commande
             $total += $sommaire + $tps + $tvq + $this->fraisLivraison;
         }
         return $total;
+    }
+
+    public function getNbItems()
+    {
+        $quantiteItem = 0;
+        foreach ($this->achat as $item) {
+            $quantiteItem += $item->getQuantite();
+        }
+        return $quantiteItem;
+    }
+
+    public function getDateLivraisonAffichage()
+    {
+        if ($this->dateLivraison) {
+            return $this->dateLivraison->format('Y-m-d H:i:s');
+        } else {
+            return "À venir";
+        }
     }
 }
