@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\TextUI\Command;
 use Symfony\Component\HttpFoundation\Request;
 
 use Stripe;
@@ -51,9 +52,9 @@ class CommandeController extends AbstractController
 
         $commande = $this->retrieveCommandeById($idCommande);
 
-
-
-        return $this->render('commande/apercuCommande.html.twig', []);
+        return $this->render('commande/apercuCommande.html.twig', [
+            'commande' => $commande
+        ]);
     }
 
     #[Route('/stripe', name: 'app_stripe_payement')]

@@ -6,8 +6,14 @@
 
 	<div class="container-fluid">
 		<h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
-			<span class="bg-secondary pr-3">Commande #</span>
+			<span class="bg-secondary pr-3">Commande #{{commande[0].idCommande}}</span>
+			<span class="bg-secondary pr-3">{{commande[0].etat}}</span>
 		</h2>
+		<div class="row px-xl-5 justify-content-center">
+			<div class="col-lg-9 mb-5">
+				<div class="bg-light p-30"></div>
+			</div>
+		</div>
 	</div>
 
 	{% include 'core/footer.html.twig' %}
