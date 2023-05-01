@@ -48,13 +48,20 @@ class CommandeController extends AbstractController
     public function commandeId($idCommande): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        // TODO: Doit faire la vérification si c'est bien au User connecter
 
         $commande = $this->retrieveCommandeById($idCommande);
 
-        return $this->render('commande/apercuCommande.html.twig', [
-            'commande' => $commande
-        ]);
+        // S'il a pas de commande corespondant
+        if ($commande == null) {
+            return $this->redirectToRoute('app_commande');
+        }
+        if ($commande->estAMoi($this->getUser())) {
+            return $this->render('commande/apercuCommande.html.twig', [
+                'commande' => $commande
+            ]);
+        } else {
+            return $this->redirectToRoute('app_commande');
+        }
     }
 
     #[Route('/stripe', name: 'app_stripe_payement')]
@@ -137,7 +144,7 @@ class CommandeController extends AbstractController
 
     private function retrieveCommandeById($idCommande)
     {
-        return $this->em->getRepository(Commande::class)->findByIdCommande($idCommande);
+        return $this->em->getRepository(Commande::class)->find($idCommande);
     }
 
     private function initSession(Request $request)

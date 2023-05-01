@@ -194,4 +194,13 @@ class Commande
             return "À venir";
         }
     }
+
+    public function estAMoi(Client $client)
+    {
+        if ($this->client == $client) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
