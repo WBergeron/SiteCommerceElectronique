@@ -57,7 +57,7 @@ class CommandeController extends AbstractController
         }
         if ($commande->estAMoi($this->getUser())) {
             return $this->render('commande/apercuCommande.html.twig', [
-                'commande' => $commande
+                'commande' => $commande,
             ]);
         } else {
             return $this->redirectToRoute('app_commande');
@@ -116,7 +116,7 @@ class CommandeController extends AbstractController
                 $produit = $this->em->merge($achat->getProduit());
                 // Enlever la quantité dans le produit avec une méthode sold dans produit
                 if ($produit->vendu($achat->getQuantite())) {
-                    $message += "Le produit {$produit->getName()} n'est plus en stock.";
+                    $message .= "Le produit {$produit->getName()} n'est plus en stock.\n";
                 }
                 // Re-set le produit dans l'achat
                 $achat->setProduit($produit);
@@ -127,13 +127,13 @@ class CommandeController extends AbstractController
             $session->remove("panier");
             // Notification
             if ($message != "") {
-                $message += "Il se peut que votre commande prendre plus de temps à arriver.";
+                $message .= "Il se peut que votre commande prendre plus de temps à arriver.";
+                $this->addFlash('flashCommande', new Notification('info', $message, NotificationColor::WARNING));
             }
-            $this->addFlash('commande', new Notification('success', $message, NotificationColor::INFO));
         } catch (\Exception $e) {
             return $this->redirectToRoute('app_panier');
         }
-        return $this->redirectToRoute('app_profile');
+        return $this->redirectToRoute('app_appercucommande', array('idCommande' => $newCommande->getIdCommande()));
     }
 
     #[Route('/stripe-cancel', name: 'stripe-cancel')]
