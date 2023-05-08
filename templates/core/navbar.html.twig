@@ -39,7 +39,15 @@
 						<a href="home" class="nav-item nav-link">Accueil</a>
 						<a href="contact" class="nav-item nav-link">Contact</a>
 						<a href="{{path('app_catalogue')}}" class="nav-item nav-link">Shop</a>
-						<a href="{{path('app_profile')}}" class="nav-item nav-link">Mon Compte</a>
+						<div class="nav-item dropdown">
+							<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Mon Compte
+								<i class="fa fa-angle-down mt-1"></i>
+							</a>
+							<div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
+								<a href="{{path('app_profile')}}" class="dropdown-item">Votre profile</a>
+								<a href="{{path('app_clientCommandes')}}" class="dropdown-item">Vos commandes</a>
+							</div>
+						</div>
 						<div class="nav-item dropdown">
 							<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Achat
 								<i class="fa fa-angle-down mt-1"></i>
@@ -49,19 +57,6 @@
 								<a href="#" class="dropdown-item">Caisse</a>
 							</div>
 						</div>
-
-						<form class="d-flex nav-item m-auto" method="POST" action="{{ app.request.uri }}">
-							<div class="input-group rounded">
-								<div class="input-group-append">
-									<input name="search_field" class="form-control rounded" type="search" placeholder="Chercher un produit">
-									<button type="submit" class="btn">
-										<span class="bg-transparent text-primary">
-											<i class="fa fa-search"></i>
-										</span>
-									</button>
-								</div>
-							</div>
-						</form>
 					</div>
 					<div class="navbar-nav ml-auto py-0 d-none d-lg-block">
 						<a href="" class="btn px-0">

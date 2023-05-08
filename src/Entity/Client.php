@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ClientRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -60,6 +62,14 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private array $roles = [];
+
+    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Commande::class, orphanRemoval: true, cascade: ['persist'])]
+    private Collection $inventaire;
+
+    public function __construct()
+    {
+        $this->inventaire = new ArrayCollection();
+    }
 
     public function getIdClient(): ?int
     {
@@ -213,5 +223,34 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection<int, Commande>
+     */
+    public function getInventaire(): Collection
+    {
+        return $this->inventaire;
+    }
+
+    public function addInventaire(Commande $inventaire): self
+    {
+        if (!$this->inventaire->contains($inventaire)) {
+            $this->inventaire->add($inventaire);
+            $inventaire->setClient($this);
+        }
+        return $this;
+    }
+
+    public function removeInventory(Commande $inventaire): self
+    {
+        if ($this->inventaire->removeElement($inventaire)) {
+            // set the owning side to null (unless already changed)
+            if ($inventaire->getClient() === $this) {
+                $inventaire->setClient(null);
+            }
+        }
+
+        return $this;
     }
 }

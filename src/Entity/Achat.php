@@ -2,11 +2,32 @@
 
 namespace App\Entity;
 
+use App\Repository\AchatRepository;
+use Doctrine\ORM\Mapping as ORM;
+
+
+#[ORM\Entity(repositoryClass: AchatRepository::class)]
+#[ORM\Table(name: 'achats')]
 class Achat
 {
-    private $produit;
-    private $quantite;
-    private $prixAchat;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(name: 'idAchat')]
+    private ?int $idAchat = null;
+
+    #[ORM\Column(name: 'quantite', nullable: false)]
+    private ?int $quantite = null;
+
+    #[ORM\Column(name: 'prixAchat', nullable: false)]
+    private ?float $prixAchat = null;
+
+    #[ORM\ManyToOne(targetEntity: Produit::class, cascade: ["persist"])]
+    #[ORM\JoinColumn(name: 'idProduit', referencedColumnName: 'idProduit', nullable: false)]
+    private ?Produit $produit = null;
+
+    #[ORM\ManyToOne(targetEntity: Commande::class, inversedBy: 'achat', cascade: ["persist"])]
+    #[ORM\JoinColumn(name: 'idCommande', referencedColumnName: 'idCommande', nullable: false)]
+    private ?Commande $commande = null;
 
     public function __construct($produit, $quantite, $prixAchat)
     {
@@ -25,9 +46,9 @@ class Achat
         $this->quantite = $this->quantite + 1;
     }
 
-    public function getProduit(): Produit
+    public function getIdAchat(): ?int
     {
-        return $this->produit;
+        return $this->idAchat;
     }
 
     public function getQuantite(): ?int
@@ -38,5 +59,29 @@ class Achat
     public function getPrixAchat(): ?float
     {
         return $this->prixAchat;
+    }
+
+    public function getProduit(): Produit
+    {
+        return $this->produit;
+    }
+
+    public function setProduit(?Produit $produit): self
+    {
+        $this->produit = $produit;
+
+        return $this;
+    }
+
+    public function getCommande(): Commande
+    {
+        return $this->commande;
+    }
+
+    public function setCommande(?Commande $commande): self
+    {
+        $this->commande = $commande;
+
+        return $this;
     }
 }

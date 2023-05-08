@@ -6,6 +6,7 @@ use App\Core\Notification;
 use App\Core\NotificationColor;
 use App\Form\ModificationClientFormType;
 use App\Entity\Client;
+use App\Entity\Commande;
 use App\Form\ModificationMDPFormType;
 use Symfony\Bundle\SecurityBundle\Security;
 use Doctrine\ORM\EntityManagerInterface;
@@ -19,6 +20,13 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ProfileController extends AbstractController
 {
+    private $em = null;
+
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->em = $em;
+    }
+
     #[Route('/profile', name: 'app_profile')]
     public function index(
         Request $request,
@@ -109,9 +117,28 @@ class ProfileController extends AbstractController
         ]);
     }
 
+    #[Route('/profile/commandes', name: 'app_clientCommandes')]
+    public function clientCommandes()
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        // Request au serveur pour les commandes en lien avec le client connecter
+        $client = $this->getUser();
+        $commandesClient = $this->retrieveCommandes($client->getIdClient());
+
+        return $this->render('profile/commandes.html.twig', [
+            'commandesClient' => $commandesClient,
+        ]);
+    }
+
     #[Route('/deconnection', name: 'app_deconnection')]
     public function deconnection()
     {
         throw new \Exception("Don't forget to activate logout in security.yaml");
+    }
+
+    private function retrieveCommandes($idClient)
+    {
+        return $this->em->getRepository(Commande::class)->findBy(array('client' => $idClient));
     }
 }

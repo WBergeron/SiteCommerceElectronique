@@ -29,8 +29,8 @@ class Produit
     #[ORM\Column(length: 255)]
     private ?string $imagePath = null;
 
-    #[ORM\ManyToOne(targetEntity: Categorie::class, inversedBy: "produits", cascade: ["persist"])]
-    #[ORM\JoinColumn(name: 'categorie', referencedColumnName: 'idCategorie')]
+    #[ORM\ManyToOne(targetEntity: Categorie::class, inversedBy: "produits", cascade: ["persist"], fetch: "EAGER")]
+    #[ORM\JoinColumn(name: 'idCategorie', referencedColumnName: 'idCategorie', nullable: false)]
     private $categorie;
 
     public function getIdProduit(): ?int
@@ -53,12 +53,10 @@ class Produit
         return $this->price;
     }
 
-
     public function getQuantityInStock(): ?float
     {
         return $this->quantityInStock;
     }
-
 
     public function getDescription(): ?string
     {
@@ -68,5 +66,16 @@ class Produit
     public function getImagePath(): ?string
     {
         return $this->imagePath;
+    }
+
+    public function vendu(int $quantiteVendu)
+    {
+        $nouvelleQuantite = $this->quantityInStock - $quantiteVendu;
+        $this->quantityInStock = $nouvelleQuantite;
+        if ($this->quantityInStock <= 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
