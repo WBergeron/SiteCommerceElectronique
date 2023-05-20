@@ -57,6 +57,19 @@
 								<a href="#" class="dropdown-item">Caisse</a>
 							</div>
 						</div>
+						{% if is_granted("ROLE_ADMIN") %}
+							<div class="nav-item dropdown">
+								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Administration
+									<i class="fa fa-angle-down mt-1"></i>
+								</a>
+								<div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
+									<a href="{{path('app_adminCategories')}}" class="dropdown-item">Catégories</a>
+									<a href="#" class="dropdown-item">Nouveau Produit</a>
+									<a href="#" class="dropdown-item">Produits</a>
+									<a href="#" class="dropdown-item">Commandes</a>
+								</div>
+							</div>
+						{% endif %}
 					</div>
 					<div class="navbar-nav ml-auto py-0 d-none d-lg-block">
 						<a href="" class="btn px-0">
