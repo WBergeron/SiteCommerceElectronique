@@ -6,6 +6,7 @@ use App\Core\Notification;
 use App\Core\NotificationColor;
 use App\Entity\Commande;
 use App\Entity\Panier;
+use App\Form\ModificationEtatCommandeFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -45,11 +46,23 @@ class CommandeController extends AbstractController
     }
 
     #[Route('/commande/{idCommande}', name: 'app_appercucommande')]
-    public function commandeId($idCommande): Response
+    public function commandeId($idCommande, Request $request): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $notification = null;
 
         $commande = $this->retrieveCommandeById($idCommande);
+
+        $formStatus = $this->createForm(ModificationEtatCommandeFormType::class, $commande);
+        $formStatus->handleRequest($request);
+
+        if ($formStatus->isSubmitted() && $formStatus->isValid()) {
+            // A VOIR!!! Checker avec Yannick si la date est importante
+            $this->em->persist($commande);
+            $this->em->flush();
+            $message = "Votre commande à bien été modifié";
+            $notification = new Notification('success', $message, NotificationColor::SUCCESS);
+        }
 
         // S'il a pas de commande corespondant
         if ($commande == null) {
@@ -58,6 +71,8 @@ class CommandeController extends AbstractController
         if ($commande->estAMoi($this->getUser()) || $this->isGranted('ROLE_ADMIN')) {
             return $this->render('commande/apercuCommande.html.twig', [
                 'commande' => $commande,
+                'notification' => $notification,
+                'modificationStatusForm' => $formStatus->createView()
             ]);
         } else {
             return $this->redirectToRoute('app_commande');

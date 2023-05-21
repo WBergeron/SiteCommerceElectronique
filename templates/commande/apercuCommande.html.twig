@@ -1,4 +1,5 @@
 {% extends 'core/base.html.twig' %}
+{% form_theme modificationStatusForm 'bootstrap_5_layout.html.twig' %}
 
 {% block body %}
 	{% include 'core/topbar.html.twig' %}
@@ -15,8 +16,13 @@
 					<div class="alert {{ message.color }}">{{ message.content }}</div>
 				{% endfor %}
 				<div class="bg-light p-30">
-					<h3 class="pt-3 pb-3">
-						Information de la commande</h3>
+					<div class="pt-3 pb-3 position-relative d-flex justify-content-between">
+						<h3>Information de la commande</h3>
+						{% if is_granted("ROLE_ADMIN") %}
+							{{form_start(modificationStatusForm, {'attr': {'class': '.needs-validation-categorie', 'novalidate': 'novalidate'}})}}
+							{{form_end(modificationStatusForm)}}
+						{% endif %}
+					</div>
 					<div class="row font-weight-bold">
 						<div class="col-5">
 							<p class="d-flex justify-content-between"># Commande

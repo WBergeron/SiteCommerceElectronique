@@ -105,6 +105,13 @@ class Commande
         return $this->etat;
     }
 
+    public function setEtat(string $etat): self
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
     public function getStripeIntent(): ?string
     {
         return $this->stripeIntent;
