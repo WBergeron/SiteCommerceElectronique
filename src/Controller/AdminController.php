@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Categorie;
 use App\Entity\Commande;
+use App\Entity\Produit;
 use App\Form\CategorieCollection;
 use App\Form\CategorieCollectionType;
 use Doctrine\ORM\EntityManager;
@@ -64,6 +65,36 @@ class AdminController extends AbstractController
 
         return $this->render('admin/commandes.html.twig', [
             'listeCommandes' => $commandes
+        ]);
+    }
+
+    #[Route('/admin/products', name: 'app_adminProduits')]
+    public function adminProducts(Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_profile');
+        }
+
+        $produits = $this->em->getRepository(Produit::class)->findAll();
+
+        return $this->render('admin/produits.html.twig', [
+            'listeProduits' => $produits
+        ]);
+    }
+
+    #[Route('/admin/products', name: 'app_adminAjoutModifierProduit')]
+    public function adminAjoutModifProducts(Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_profile');
+        }
+
+        $produits = $this->em->getRepository(Produit::class)->findAll();
+
+        return $this->render('admin/produits.html.twig', [
+            'listeProduits' => $produits
         ]);
     }
 }
