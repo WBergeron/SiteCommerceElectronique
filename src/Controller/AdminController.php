@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Categorie;
-
+use App\Entity\Commande;
 use App\Form\CategorieCollection;
 use App\Form\CategorieCollectionType;
 use Doctrine\ORM\EntityManager;
@@ -36,11 +36,11 @@ class AdminController extends AbstractController
 
         $formCategories = $this->createForm(CategorieCollectionType::class, $categoriesCollection);
 
-        $formCategories->handleRequest($request);
+        // La vérification de cette ligne la fonctionne pas...
+        // $formCategories->handleRequest($request);
 
         if ($formCategories->isSubmitted() && $formCategories->isValid()) {
             $newCollectionCategories = $formCategories->getData()->getCategories();
-
             foreach ($newCollectionCategories as $newCategorie) {
                 $this->em->persist($newCategorie);
             }
@@ -49,6 +49,21 @@ class AdminController extends AbstractController
 
         return $this->render('admin/categories.html.twig', [
             'formCategories' => $formCategories
+        ]);
+    }
+
+    #[Route('/admin/commandes', name: 'app_adminCommandes')]
+    public function adminCommandes(Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_profile');
+        }
+
+        $commandes = $this->em->getRepository(Commande::class)->findAllAndOrderByDate();
+
+        return $this->render('admin/commandes.html.twig', [
+            'listeCommandes' => $commandes
         ]);
     }
 }

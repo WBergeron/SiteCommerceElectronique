@@ -1,0 +1,57 @@
+{% extends 'core/base.html.twig' %}
+
+{% block body %}
+	{% include 'core/topbar.html.twig' %}
+	{% include 'core/navbar.html.twig' %}
+
+	<div class="container-fluid">
+		<h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
+			<span class="bg-secondary pr-3">Toutes les commandes</span>
+		</h2>
+		<div class="row px-xl-5 justify-content-center">
+			<div class="col-lg-9 mb-5">
+				<div class="bg-light p-30">
+					<table class="table table-light table-borderless table-hover text-center mb-0">
+						<thead class="thead-dark">
+							<tr>
+								<th>#Commande</th>
+								<th>Date</th>
+								<th>Total</th>
+								<th>Status</th>
+								<th>Détail</th>
+							</tr>
+						</thead>
+						<tbody class="align-middle">
+							{% for commande in listeCommandes %}
+								<tr>
+									<td class="align-middle">
+										{{commande.idCommande}}
+									</td>
+									<td>
+										{{commande.dateCommande | date("Y-m-d H:i:s")}}
+									</td>
+									<td>
+										{{commande.getTotal() | round(2, 'floor')}}
+										$
+									</td>
+									<td>
+										{{commande.etat}}
+									</td>
+									<td>
+										<a href=" {{ path('app_appercucommande', {idCommande : commande.idCommande}) }}">
+											<div class="btn btn-sm btn-primary">
+												<i class="fa fa-eye"></i>
+											</div>
+										</a>
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% include 'core/footer.html.twig' %}
+{% endblock %}

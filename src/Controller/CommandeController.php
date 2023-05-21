@@ -55,7 +55,7 @@ class CommandeController extends AbstractController
         if ($commande == null) {
             return $this->redirectToRoute('app_commande');
         }
-        if ($commande->estAMoi($this->getUser())) {
+        if ($commande->estAMoi($this->getUser()) || $this->isGranted('ROLE_ADMIN')) {
             return $this->render('commande/apercuCommande.html.twig', [
                 'commande' => $commande,
             ]);
