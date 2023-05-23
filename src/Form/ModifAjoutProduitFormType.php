@@ -64,11 +64,11 @@ class ModifAjoutProduitFormType extends AbstractType
             },
             function ($imagePathFromView) {
                 // To Database
-                if ($imagePathFromView = null) {
-                    return "";
+                // TODO: Doit retourner l'ancienne string ou faire le nouveau path
+                if ($imagePathFromView == null) {
+                    return;
                 } else {
-                    // return
-                    // TODO: Retourner un string 
+                    return $imagePathFromView;
                 }
             }
         ));

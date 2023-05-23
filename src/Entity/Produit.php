@@ -26,7 +26,7 @@ class Produit
     #[ORM\Column(length: 1024)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $imagePath = null;
 
     #[ORM\ManyToOne(targetEntity: Categorie::class, inversedBy: "produits", cascade: ["persist"], fetch: "EAGER")]
@@ -43,9 +43,23 @@ class Produit
         return $this->name;
     }
 
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
     public function getCategorie(): ?Categorie
     {
         return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): self
+    {
+        $this->categorie = $categorie;
+
+        return $this;
     }
 
     public function getPrice(): ?float
@@ -53,9 +67,23 @@ class Produit
         return $this->price;
     }
 
+    public function setPrice(?float $price): self
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
     public function getQuantityInStock(): ?float
     {
         return $this->quantityInStock;
+    }
+
+    public function setQuantityInStock(?float $quantityInStock): self
+    {
+        $this->quantityInStock = $quantityInStock;
+
+        return $this;
     }
 
     public function getDescription(): ?string
@@ -63,9 +91,23 @@ class Produit
         return $this->description;
     }
 
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
     public function getImagePath(): ?string
     {
         return $this->imagePath;
+    }
+
+    public function setImagePath(?string $imagePath): self
+    {
+        $this->imagePath = $imagePath;
+
+        return $this;
     }
 
     public function vendu(int $quantiteVendu)
