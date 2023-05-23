@@ -7,12 +7,11 @@ use App\Entity\Commande;
 use App\Entity\Produit;
 use App\Form\CategorieCollection;
 use App\Form\CategorieCollectionType;
-use Doctrine\ORM\EntityManager;
+use App\Form\ModifAjoutProduitFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Doctrine\ORM\EntityManagerInterface;
 
 class AdminController extends AbstractController
@@ -36,9 +35,7 @@ class AdminController extends AbstractController
         $categoriesCollection = new CategorieCollection($categories);
 
         $formCategories = $this->createForm(CategorieCollectionType::class, $categoriesCollection);
-
-        // La vérification de cette ligne la fonctionne pas...
-        // $formCategories->handleRequest($request);
+        $formCategories->handleRequest($request);
 
         if ($formCategories->isSubmitted() && $formCategories->isValid()) {
             $newCollectionCategories = $formCategories->getData()->getCategories();
@@ -83,18 +80,25 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/products', name: 'app_adminAjoutModifierProduit')]
-    public function adminAjoutModifProducts(Request $request): Response
+    #[Route('/admin/products/{idProduit}', name: 'app_adminModifierProduit')]
+    public function adminModifProducts($idProduit, Request $request): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
         if (!$this->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('app_profile');
         }
 
-        $produits = $this->em->getRepository(Produit::class)->findAll();
+        $produit = $this->em->getRepository(Produit::class)->find($idProduit);
+        $formProduit = $this->createForm(ModifAjoutProduitFormType::class, $produit);
+        $formProduit->handleRequest($request);
 
-        return $this->render('admin/produits.html.twig', [
-            'listeProduits' => $produits
+        if ($formProduit->isSubmitted() && $formProduit->isValid()) {
+            $this->em->persist($produit);
+            $this->em->flush();
+        }
+
+        return $this->render('admin/modifAjoutProduit.html.twig', [
+            'formProduit' => $formProduit
         ]);
     }
 }

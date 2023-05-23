@@ -1,0 +1,51 @@
+{% extends 'core/base.html.twig' %}
+{% form_theme formProduit 'bootstrap_5_layout.html.twig' %}
+
+{% block body %}
+	{% include 'core/topbar.html.twig' %}
+	{% include 'core/navbar.html.twig' %}
+
+	<div class="container-fluid">
+		<h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
+			<span class="bg-secondary pr-3">Modification D'un Produit</span>
+		</h2>
+		<div class="row px-xl-5 justify-content-center">
+			<div class="col-lg-9 mb-5">
+				<div class="bg-light p-30">
+					{{ form_start(formProduit, {'attr': {'class': 'needs-validation-register', 'novalidate': 'novalidate' }}) }}
+					<div class="row">
+						<div class="col-6">
+							{{ form_row(formProduit.name) }}
+						</div>
+						<div class="col-6">
+							{{ form_row(formProduit.categorie, {'attr': {'class': 'form_select'}}) }}
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">
+							{{ form_row(formProduit.price) }}
+						</div>
+						<div class="col-6">
+							{{ form_row(formProduit.quantity_in_stock) }}
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12">
+							{{ form_row(formProduit.description) }}
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12">
+							{{ form_row(formProduit.image_path) }}
+						</div>
+					</div>
+					<div class="d-flex justify-content-center">
+						{{ form_row(formProduit.enregistrer) }}
+					</div>
+					{{ form_end(formProduit) }}
+				</div>
+			</div>
+		</div>
+	</div>
+	{% include 'core/footer.html.twig' %}
+{% endblock %}

@@ -15,9 +15,9 @@
 					{{ form_start(formCategories, {'attr': {'class': '.needs-validation-categorie', 'novalidate': 'novalidate'}}) }}
 					<div class="row d-flex justify-content-center">
 						<div class="col-lg-8 mx-auto">
-							<ul class="items" style="list-style-type:none;" data-index=" {{ formCategories.categories|length > 0 ? formCategories.categories|last.vars.name + 1 : 0 }} " data-prototype=" {{ form_widget(formCategories.categories.vars.prototype)|e('html_attr') }} ">
+							<ul class="items" style="list-style-type:none;" data-index="{{ formCategories.categories|length > 0 ? formCategories.categories|last.vars.name + 1 : 0 }}" data-prototype=" {{ form_widget(formCategories.categories.vars.prototype)|e('html_attr') }} ">
 								{% for categorie in formCategories.categories %}
-									<li class="row-6">{{ form_row(categorie.categorie) }}</li>
+									<li class="row-6">{{form_row(categorie.categorie)}}</li>
 								{% endfor %}
 							</ul>
 						</div>
