@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AdminController extends AbstractController
 {
@@ -81,7 +82,7 @@ class AdminController extends AbstractController
     }
 
     #[Route('/admin/products/{idProduit}', name: 'app_adminModifierProduit')]
-    public function adminModifProducts($idProduit, Request $request): Response
+    public function adminModifProducts($idProduit, Request $request, SluggerInterface $slugger): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
         if (!$this->isGranted('ROLE_ADMIN')) {
@@ -93,6 +94,18 @@ class AdminController extends AbstractController
         $formProduit->handleRequest($request);
 
         if ($formProduit->isSubmitted() && $formProduit->isValid()) {
+            $imagePath = $formProduit->get('image_path')->getData();
+            if ($imagePath) {
+                $originalFilename = pathinfo($imagePath->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $imagePath->guessExtension();
+
+                var_dump($newFilename);
+                $produit->setImagePath($newFilename);
+            } else {
+                $produit->setImagePath();
+            }
             $this->em->persist($produit);
             $this->em->flush();
         }
