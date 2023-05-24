@@ -64,7 +64,6 @@ class ModifAjoutProduitFormType extends AbstractType
             },
             function ($imagePathFromView) {
                 // To Database
-                // TODO: Doit retourner l'ancienne string ou faire le nouveau path
                 if ($imagePathFromView == null) {
                     return;
                 } else {

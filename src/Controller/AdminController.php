@@ -82,7 +82,7 @@ class AdminController extends AbstractController
     }
 
     #[Route('/admin/products/{idProduit}', name: 'app_adminModifierProduit')]
-    public function adminModifProducts($idProduit, Request $request, SluggerInterface $slugger): Response
+    public function adminModifProducts($idProduit, Request $request): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
         if (!$this->isGranted('ROLE_ADMIN')) {
@@ -90,6 +90,7 @@ class AdminController extends AbstractController
         }
 
         $produit = $this->em->getRepository(Produit::class)->find($idProduit);
+        $vieuxPath = $produit->getImagePath();
         $formProduit = $this->createForm(ModifAjoutProduitFormType::class, $produit);
         $formProduit->handleRequest($request);
 
@@ -97,14 +98,43 @@ class AdminController extends AbstractController
             $imagePath = $formProduit->get('image_path')->getData();
             if ($imagePath) {
                 $originalFilename = pathinfo($imagePath->getClientOriginalName(), PATHINFO_FILENAME);
-                // this is needed to safely include the file name as part of the URL
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $imagePath->guessExtension();
+                $newFilename = $originalFilename . '.' . "jpg";
 
-                var_dump($newFilename);
-                $produit->setImagePath($newFilename);
+                $produit->setImagePath("img/{$newFilename}");
             } else {
-                $produit->setImagePath();
+                $produit->setImagePath($vieuxPath);
+            }
+            $this->em->persist($produit);
+            $this->em->flush();
+        }
+
+        return $this->render('admin/modifAjoutProduit.html.twig', [
+            'formProduit' => $formProduit
+        ]);
+    }
+
+    #[Route('/admin/newProducts', name: 'app_adminAjoutProduit')]
+    public function adminAjoutProducts(Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_profile');
+        }
+
+        $produit = new Produit();
+        $vieuxPath = $produit->getImagePath();
+        $formProduit = $this->createForm(ModifAjoutProduitFormType::class, $produit);
+        $formProduit->handleRequest($request);
+
+        if ($formProduit->isSubmitted() && $formProduit->isValid()) {
+            $imagePath = $formProduit->get('image_path')->getData();
+            if ($imagePath) {
+                $originalFilename = pathinfo($imagePath->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFilename = $originalFilename . '.' . "jpg";
+
+                $produit->setImagePath("img/{$newFilename}");
+            } else {
+                $produit->setImagePath($vieuxPath);
             }
             $this->em->persist($produit);
             $this->em->flush();
