@@ -122,7 +122,6 @@ class AdminController extends AbstractController
         }
 
         $produit = new Produit();
-        $vieuxPath = $produit->getImagePath();
         $formProduit = $this->createForm(ModifAjoutProduitFormType::class, $produit);
         $formProduit->handleRequest($request);
 
@@ -134,7 +133,7 @@ class AdminController extends AbstractController
 
                 $produit->setImagePath("img/{$newFilename}");
             } else {
-                $produit->setImagePath($vieuxPath);
+                $produit->setImagePath("");
             }
             $this->em->persist($produit);
             $this->em->flush();

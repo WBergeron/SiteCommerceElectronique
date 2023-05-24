@@ -57,7 +57,7 @@ class CommandeController extends AbstractController
         $formStatus->handleRequest($request);
 
         if ($formStatus->isSubmitted() && $formStatus->isValid()) {
-            // A VOIR!!! Checker avec Yannick si la date est importante
+            $commande->siLivree($formStatus->getData()->getEtat());
             $this->em->persist($commande);
             $this->em->flush();
             $message = "Votre commande à bien été modifié";

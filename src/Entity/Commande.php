@@ -210,4 +210,13 @@ class Commande
             return false;
         }
     }
+
+    public function siLivree(string $etat)
+    {
+        if ($etat == "Livree") {
+            $this->dateLivraison = new DateTime();
+        } else {
+            $this->dateLivraison = null;
+        }
+    }
 }
