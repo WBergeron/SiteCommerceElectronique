@@ -4,8 +4,8 @@
 https://4d6.2052824.techinfo-cstj.ca/
 
 ## Description
-Le projet consiste avec le framework de Symfony et de php/twig de faire un site web de commerce électronique complet, incluant la création de compte, payement et integration de commande etc.
-Tout les mots de passe sont hasher avec Argon.
+Le projet consiste avec le framework de Symfony et de Php/twig à faire un site web de commerce électronique complet, incluant la création du compte, payement et intégration de commande etc.
+Tous les mots de passe sont hasher avec Argon.
 
 ## Image
 Ici, nous avons l'écran d'achat
